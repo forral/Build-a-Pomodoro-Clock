@@ -1,3 +1,4 @@
+var display = document.querySelector('.display');
 var setTimer;
 
 function setPomodoroTimer(timeInSeconds) {
@@ -5,10 +6,10 @@ function setPomodoroTimer(timeInSeconds) {
 
   setTimer = setInterval(function() {
     if (counter !== 0) {
-      console.log(counter);
+      display.textContent = counter;
       counter--;
     } else {
-      console.log(0);
+      display.textContent = 0;
       clearInterval(setTimer);
     }
   }, 1000);
