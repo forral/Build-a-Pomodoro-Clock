@@ -1,5 +1,16 @@
 var display = document.querySelector('.display');
+var startButton = document.querySelector('.start');
+var pauseButton = document.querySelector('.pause');
 var setTimer;
+
+startButton.addEventListener('click', function() {
+  var currentScreenTime = display.textContent - 1;
+  setPomodoroTimer(currentScreenTime);
+});
+
+pauseButton.addEventListener('click', function() {
+  clearInterval(setTimer);  
+});
 
 function setPomodoroTimer(timeInSeconds) {
   var counter = timeInSeconds;
