@@ -3,6 +3,19 @@ html {
   color: white;
 }
 
+.app {
+  margin-top: 40%;
+  text-align: center;
+}
+
+.display {
+  font-size: 80px;
+}
+
 .hide {
   display: none;
+}
+
+button {
+  width: 50px;
 }

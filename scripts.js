@@ -3,13 +3,18 @@ var startButton = document.querySelector('.start');
 var pauseButton = document.querySelector('.pause');
 var setTimer;
 
-startButton.addEventListener('click', function() {
-  var currentScreenTime = display.textContent;
+var timerStatus = {
+  defaultStartingValue: 25,
+  working: false
+}
 
-  if (currentScreenTime == 0) {
-    setPomodoroTimer(25);  
+startButton.addEventListener('click', function() {
+  var currentScreenTime = Number(display.textContent);
+
+  if (currentScreenTime === 0) {
+    setPomodoroTimer(timerStatus.defaultStartingValue);  
   } else {
-    setPomodoroTimer(currentScreenTime - 1);
+    setPomodoroTimer(currentScreenTime);
   }
 
   timerStatus.working = true;
@@ -34,12 +39,9 @@ function setPomodoroTimer(timeInSeconds) {
       counter--;
     } else {
       display.textContent = 0;
+      pauseButton.classList.add('hide');
+      startButton.classList.remove('hide');
       clearInterval(setTimer);
     }
   }, 1000);
-
-}
-
-var timerStatus = {
-  working: false
 }
