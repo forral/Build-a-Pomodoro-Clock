@@ -1,47 +1,47 @@
-var display = document.querySelector('.display');
 var startButton = document.querySelector('.start');
-var pauseButton = document.querySelector('.pause');
+var minutesDisplay = document.getElementById('minutes');
+var secondsDisplay = document.getElementById('seconds');
+
+// TODO NEXT: try to put this value inside the timerStatus object
 var setTimer;
 
 var timerStatus = {
-  defaultStartingValue: 25,
-  working: false
+  defaultStartingValue: 1,
+  running: false
 }
 
+minutesDisplay.textContent = timerStatus.defaultStartingValue < 10 ? '0' + timerStatus.defaultStartingValue : timerStatus.defaultStartingValue;
+secondsDisplay.textContent = '00';
+
 startButton.addEventListener('click', function() {
-  var currentScreenTime = Number(display.textContent);
-
-  if (currentScreenTime === 0) {
-    setPomodoroTimer(timerStatus.defaultStartingValue);  
-  } else {
-    setPomodoroTimer(currentScreenTime);
-  }
-
-  timerStatus.working = true;
-  pauseButton.classList.remove('hide');
-  startButton.classList.add('hide');
+  setPomodoroTimer(timerStatus.defaultStartingValue);
+  timerStatus.running = true;
+  startButton.classList.add('hidden');
 });
 
-pauseButton.addEventListener('click', function() {
-  clearInterval(setTimer);
-  timerStatus.working = false;
-  startButton.classList.remove('hide');
-  pauseButton.classList.add('hide');  
-});
-
-function setPomodoroTimer(timeInSeconds) {
-  var counter = timeInSeconds;
-  display.textContent = counter;
+function setPomodoroTimer(time) {
+  var minutesCounter = time - 1;
+  var secondsCounter = 60;
 
   setTimer = setInterval(function() {
-    if (counter !== 0) {
-      display.textContent = counter;
-      counter--;
-    } else {
-      display.textContent = 0;
-      pauseButton.classList.add('hide');
-      startButton.classList.remove('hide');
+
+    minutesDisplay.textContent = minutesCounter < 10 ? '0' + minutesCounter : minutesCounter;
+
+    if (minutesCounter !== -1) {
+      secondsCounter--;
+      secondsDisplay.textContent = secondsCounter < 10 ? '0' + secondsCounter : secondsCounter;
+    }
+
+    if (secondsCounter === 0) {
+      minutesCounter--;
+      minutesDisplay.textContent = minutesCounter < 10 ? '0' + minutesCounter : minutesCounter;
+      secondsCounter = 60;
+    }
+
+    if (secondsCounter === 1 && minutesCounter === 0) {
+      secondsDisplay.textContent = '00';
       clearInterval(setTimer);
     }
+
   }, 1000);
 }

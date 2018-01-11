@@ -1,21 +1,27 @@
 html {
-  background-color: darkslateblue;
-  color: white;
+  background-color: #23272b;
+  color: #ff1a66;
 }
 
 .app {
-  margin-top: 40%;
+  margin-top: 150px;
   text-align: center;
 }
 
 .display {
   font-size: 80px;
+  margin: 30px;
 }
 
-.hide {
-  display: none;
+.display p {
+  margin: 0;
+  line-height: 66px;
 }
 
 button {
   width: 50px;
+}
+
+.hidden {
+  display: none;
 }
