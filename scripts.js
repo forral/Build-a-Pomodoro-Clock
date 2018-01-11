@@ -3,10 +3,12 @@ var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
 
 // TODO NEXT: try to put this value inside the timerStatus object
-var setTimer;
+// var setTimer;
 
 var timerStatus = {
-  defaultStartingValue: 1,
+  setTimer: null,
+  defaultStartingValue: 0,
+  defaultBreakTimeValue: 5,
   running: false
 }
 
@@ -23,11 +25,11 @@ function setPomodoroTimer(time) {
   var minutesCounter = time - 1;
   var secondsCounter = 60;
 
-  setTimer = setInterval(function() {
+  timerStatus.setTimer = setInterval(function() {
 
     minutesDisplay.textContent = minutesCounter < 10 ? '0' + minutesCounter : minutesCounter;
 
-    if (minutesCounter !== -1) {
+    if (minutesCounter !== -2) {
       secondsCounter--;
       secondsDisplay.textContent = secondsCounter < 10 ? '0' + secondsCounter : secondsCounter;
     }
@@ -38,9 +40,9 @@ function setPomodoroTimer(time) {
       secondsCounter = 60;
     }
 
-    if (secondsCounter === 1 && minutesCounter === 0) {
-      secondsDisplay.textContent = '00';
-      clearInterval(setTimer);
+    if (minutesCounter === -2) {
+      console.log('clearInterval run');
+      clearInterval(timerStatus.setTimer);
     }
 
   }, 1000);

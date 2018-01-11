@@ -1,6 +1,5 @@
 html {
   background-color: #23272b;
-  color: #ff1a66;
 }
 
 .app {
@@ -8,7 +7,13 @@ html {
   text-align: center;
 }
 
+.title {
+  color: #f0f1f2;
+  text-transform: uppercase;
+}
+
 .display {
+  color: #ff1a66;
   font-size: 80px;
   margin: 30px;
 }
