@@ -1,15 +1,14 @@
 var startButton = document.querySelector('.start');
 var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
-
-// TODO NEXT: try to put this value inside the timerStatus object
-// var setTimer;
+var title = document.querySelector('.title');
 
 var timerStatus = {
   setTimer: null,
   defaultStartingValue: 0,
-  defaultBreakTimeValue: 5,
-  running: false
+  runningTimer: false,
+  defaultBreakTimeValue: 1,
+  runningBreakTime: false
 }
 
 minutesDisplay.textContent = timerStatus.defaultStartingValue < 10 ? '0' + timerStatus.defaultStartingValue : timerStatus.defaultStartingValue;
@@ -17,7 +16,7 @@ secondsDisplay.textContent = '00';
 
 startButton.addEventListener('click', function() {
   setPomodoroTimer(timerStatus.defaultStartingValue);
-  timerStatus.running = true;
+  timerStatus.runningTimer = true;
   startButton.classList.add('hidden');
 });
 
@@ -42,7 +41,11 @@ function setPomodoroTimer(time) {
 
     if (minutesCounter === -2) {
       console.log('clearInterval run');
+      timerStatus.runningTimer = !timerStatus.runningTimer;
       clearInterval(timerStatus.setTimer);
+      title.classList.toggle('hidden');
+      timerStatus.runningBreakTime = !timerStatus.runningBreakTime;
+      setPomodoroTimer(timerStatus.defaultBreakTimeValue);
     }
 
   }, 1000);
