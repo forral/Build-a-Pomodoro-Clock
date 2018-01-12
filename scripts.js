@@ -11,7 +11,13 @@ var timerStatus = {
   runningBreakTime: false
 }
 
-minutesDisplay.textContent = timerStatus.defaultStartingValue < 10 ? '0' + timerStatus.defaultStartingValue : timerStatus.defaultStartingValue;
+var helpers = {
+  zeroOnFrontOfSingleDigit: function(number) {
+    return number < 10 ? '0' + number : number;
+  }
+}
+
+minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
 secondsDisplay.textContent = '00';
 
 startButton.addEventListener('click', function() {
@@ -26,21 +32,20 @@ function setPomodoroTimer(time) {
 
   timerStatus.setTimer = setInterval(function() {
 
-    minutesDisplay.textContent = minutesCounter < 10 ? '0' + minutesCounter : minutesCounter;
+    minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter);
 
     if (minutesCounter !== -2) {
       secondsCounter--;
-      secondsDisplay.textContent = secondsCounter < 10 ? '0' + secondsCounter : secondsCounter;
+      secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(secondsCounter);
     }
 
     if (secondsCounter === 0) {
       minutesCounter--;
-      minutesDisplay.textContent = minutesCounter < 10 ? '0' + minutesCounter : minutesCounter;
+      minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter);
       secondsCounter = 60;
     }
 
     if (minutesCounter === -2) {
-      console.log('clearInterval run');
       timerStatus.runningTimer = !timerStatus.runningTimer;
       clearInterval(timerStatus.setTimer);
       title.classList.toggle('hidden');
