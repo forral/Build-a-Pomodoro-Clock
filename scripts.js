@@ -8,7 +8,7 @@ var timerStatus = {
   defaultStartingValue: 0,
   runningTimer: false,
   defaultBreakTimeValue: 0,
-  runningBreakTime: false
+  runningBreakTimer: false
 }
 
 var helpers = {
@@ -21,9 +21,21 @@ minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaul
 secondsDisplay.textContent = '00';
 
 startButton.addEventListener('click', function() {
-  setPomodoroTimer(timerStatus.defaultStartingValue);
-  timerStatus.runningTimer = true;
-  startButton.classList.add('hidden');
+
+  if (timerStatus.runningTimer || (!timerStatus.runningTimer && !timerStatus.runningBreakTimer)) {
+    console.log('run the default timer');
+    //TODO: change the general colors of the application for DEFAULT running mode here
+    timerStatus.runningTimer = true;
+    startButton.classList.add('hidden');
+    setPomodoroTimer(timerStatus.defaultStartingValue);
+  }
+
+  if (timerStatus.runningBreakTimer) {
+    console.log('run break timer');
+    //TODO: change the general colors of the application for BREAK running mode here
+    startButton.classList.add('hidden');
+    setPomodoroTimer(timerStatus.defaultBreakTimeValue);
+  }  
 });
 
 function setPomodoroTimer(time) {
@@ -47,8 +59,10 @@ function setPomodoroTimer(time) {
 
     if (minutesCounter === -2) {
       timerStatus.runningTimer = !timerStatus.runningTimer;
+      timerStatus.runningBreakTimer = !timerStatus.runningBreakTimer;
       title.classList.toggle('hidden');
       startButton.classList.toggle('hidden');
+      //TODO: run a noise notification. beep beep beep beep
       clearInterval(timerStatus.setTimer);
     }
 
