@@ -7,7 +7,7 @@ var timerStatus = {
   setTimer: null,
   defaultStartingValue: 0,
   runningTimer: false,
-  defaultBreakTimeValue: 1,
+  defaultBreakTimeValue: 0,
   runningBreakTime: false
 }
 
@@ -32,7 +32,7 @@ function setPomodoroTimer(time) {
 
   timerStatus.setTimer = setInterval(function() {
 
-    minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter);
+    minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutesCounter) : '00';
 
     if (minutesCounter !== -2) {
       secondsCounter--;
@@ -41,16 +41,15 @@ function setPomodoroTimer(time) {
 
     if (secondsCounter === 0) {
       minutesCounter--;
-      minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter);
+      minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutesCounter) : '00';
       secondsCounter = 60;
     }
 
     if (minutesCounter === -2) {
       timerStatus.runningTimer = !timerStatus.runningTimer;
-      clearInterval(timerStatus.setTimer);
       title.classList.toggle('hidden');
-      timerStatus.runningBreakTime = !timerStatus.runningBreakTime;
-      setPomodoroTimer(timerStatus.defaultBreakTimeValue);
+      startButton.classList.toggle('hidden');
+      clearInterval(timerStatus.setTimer);
     }
 
   }, 1000);
