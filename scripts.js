@@ -1,4 +1,6 @@
 var startButton = document.querySelector('.start');
+var stopButton = document.querySelector('.stop');
+var restartButton = document.querySelector('.restart');
 var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
 var title = document.querySelector('.title');
@@ -6,6 +8,8 @@ var alarmSound = document.getElementById('alarm-beep');
 
 var timerStatus = {
   setTimer: null,
+  currentMinutes: 0,
+  currentSeconds: 0,
   defaultStartingValue: 0,
   runningTimer: false,
   defaultBreakTimeValue: 0,
@@ -34,6 +38,8 @@ startButton.addEventListener('click', function() {
     //TODO: change the general colors of the application for DEFAULT running mode here
     timerStatus.runningTimer = true;
     startButton.classList.add('hidden');
+    stopButton.classList.remove('hidden');
+    restartButton.classList.remove('hidden');
     setPomodoroTimer(timerStatus.defaultStartingValue);
   }
 
@@ -43,6 +49,15 @@ startButton.addEventListener('click', function() {
     startButton.classList.add('hidden');
     setPomodoroTimer(timerStatus.defaultBreakTimeValue);
   }  
+});
+
+stopButton.addEventListener('click', function() {
+  console.log('stop button pressed');
+  stopButton.classList.add('hidden');
+  startButton.classList.remove('hidden');
+  timerStatus.currentMinutes = minutesDisplay.textContent;
+  timerStatus.currentSeconds = secondsDisplay.textContent;
+  clearInterval(timerStatus.setTimer);
 });
 
 function setPomodoroTimer(time) {
@@ -69,7 +84,6 @@ function setPomodoroTimer(time) {
       timerStatus.runningBreakTimer = !timerStatus.runningBreakTimer;
       title.classList.toggle('hidden');
       startButton.classList.toggle('hidden');
-      //TODO: run a noise notification. beep beep beep beep
       alarmSound.play();
       clearInterval(timerStatus.setTimer);
     }
