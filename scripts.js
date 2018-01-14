@@ -26,6 +26,7 @@ var helpers = {
   }
 }
 
+// set the app openning with minutes and seconds display (if there isn's any user settingd, by default it should be 25:00)
 minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
 secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
 
@@ -52,6 +53,7 @@ startButton.addEventListener('click', function() {
 });
 
 stopButton.addEventListener('click', function() {
+  // TODO: create an `stopTimer();` function and put all of this code inside:
   console.log('stop button pressed');
   stopButton.classList.add('hidden');
   startButton.classList.remove('hidden');
@@ -60,6 +62,7 @@ stopButton.addEventListener('click', function() {
   clearInterval(timerStatus.setTimer);
 });
 
+// TODO: maybe rename this function for something like -> startTimer();
 function setPomodoroTimer(time) {
   var minutesCounter = time - 1;
   var secondsCounter = 60;
