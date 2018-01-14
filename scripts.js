@@ -23,7 +23,7 @@ var helpers = {
 }
 
 minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
-secondsDisplay.textContent = '00';
+secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
 
 startButton.addEventListener('click', function() {
 
