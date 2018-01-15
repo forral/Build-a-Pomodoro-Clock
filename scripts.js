@@ -27,9 +27,13 @@ var helpers = {
   }
 }
 
-// set the app openning with minutes and seconds display (if there isn's any user settingd, by default it should be 25:00)
-minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
-secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
+function init() {
+  // set the app openning with minutes and seconds display (if there isn's any user settingd, by default it should be 25:00)
+  minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
+  secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
+}
+
+init();
 
 startButton.addEventListener('click', function() {
 
@@ -60,6 +64,10 @@ startButton.addEventListener('click', function() {
 
 stopButton.addEventListener('click', function() {
   stopTimer();
+});
+
+restartButton.addEventListener('click', function(){
+  restart();
 });
 
 // TODO: maybe rename this function for something like -> startTimer();
@@ -104,5 +112,18 @@ function stopTimer() {
   timerStatus.stopped = true;
   timerStatus.currentMinutes = minutesDisplay.textContent;
   timerStatus.currentSeconds = secondsDisplay.textContent;
+  clearInterval(timerStatus.setTimer);
+}
+
+function restart() {
+  // TODO: all the object values should be on the init function.
+  timerStatus.currentMinutes = 0;
+  timerStatus.currentSeconds = 0;
+  timerStatus.runningTimer = false;
+  timerStatus.runningBreakTimer = false;
+  timerStatus.stopped = false;
+  stopButton.classList.add('hidden');
+  startButton.classList.remove('hidden');
+  init();
   clearInterval(timerStatus.setTimer);
 }
