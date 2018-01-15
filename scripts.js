@@ -12,7 +12,7 @@ var timerStatus = {
   currentSeconds: 0,
   defaultStartingValue: 0,
   runningTimer: false,
-  defaultBreakTimeValue: 0,
+  defaultBreakTimeValue: 5,
   runningBreakTimer: false,
   stopped: false
 }
@@ -46,7 +46,6 @@ startButton.addEventListener('click', function() {
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
 
   } else if (timerStatus.runningTimer || (!timerStatus.runningTimer && !timerStatus.runningBreakTimer)) {
-    console.log('run the default timer');
     //TODO: change the general colors of the application for DEFAULT running mode here
     timerStatus.runningTimer = true;
     startButton.classList.add('hidden');
@@ -55,7 +54,6 @@ startButton.addEventListener('click', function() {
     startTimer(timerStatus.defaultStartingValue - 1);
 
   } else if (timerStatus.runningBreakTimer) {
-    console.log('run break timer');
     //TODO: change the general colors of the application for BREAK running mode here
     startButton.classList.add('hidden');
     startTimer(timerStatus.defaultBreakTimeValue - 1);
@@ -99,6 +97,7 @@ function startTimer(minutes, seconds) {
       timerStatus.runningBreakTimer = !timerStatus.runningBreakTimer;
       title.classList.toggle('hidden');
       startButton.classList.toggle('hidden');
+      minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultBreakTimeValue);
       alarmSound.play();
       clearInterval(timerStatus.setTimer);
     }
@@ -117,6 +116,8 @@ function stopTimer() {
 
 function restart() {
   // TODO: all the object values should be on the init function.
+  // NOTE/TODO: this functionality it's only for the default timer not for the break timer,
+  // still have to code that
   timerStatus.currentMinutes = 0;
   timerStatus.currentSeconds = 0;
   timerStatus.runningTimer = false;
