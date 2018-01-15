@@ -10,7 +10,7 @@ var timerStatus = {
   setTimer: null,
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultStartingValue: 0,
+  defaultStartingValue: 25,
   runningTimer: false,
   defaultBreakTimeValue: 5,
   runningBreakTimer: false,
