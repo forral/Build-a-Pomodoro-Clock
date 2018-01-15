@@ -41,14 +41,14 @@ startButton.addEventListener('click', function() {
     startButton.classList.add('hidden');
     stopButton.classList.remove('hidden');
     restartButton.classList.remove('hidden');
-    setPomodoroTimer(timerStatus.defaultStartingValue);
+    startTimer(timerStatus.defaultStartingValue); // <-- here
   }
 
   if (timerStatus.runningBreakTimer) {
     console.log('run break timer');
     //TODO: change the general colors of the application for BREAK running mode here
     startButton.classList.add('hidden');
-    setPomodoroTimer(timerStatus.defaultBreakTimeValue);
+    startTimer(timerStatus.defaultBreakTimeValue); // <-- here
   }  
 });
 
@@ -63,26 +63,29 @@ stopButton.addEventListener('click', function() {
 });
 
 // TODO: maybe rename this function for something like -> startTimer();
-function setPomodoroTimer(time) {
-  var minutesCounter = time - 1;
-  var secondsCounter = 60;
+function startTimer(minutes, seconds) {
+  // Checking if the function was passed with arguments, if not give them a default value
+  minutes = minutes === undefined ? '00' : minutes - 1;
+  seconds = seconds === undefined ? 60 : seconds;
 
   timerStatus.setTimer = setInterval(function() {
 
-    minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutesCounter) : '00';
+    // paint the display with first values set, make sure if the number is less than zero then put an zero in front of it.
+    minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutes) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutes) : '00';
+    secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds) > 0 ? helpers.zeroOnFrontOfSingleDigit(seconds) : '00';
 
-    if (minutesCounter !== -2) {
-      secondsCounter--;
-      secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(secondsCounter);
+    if (minutes !== -2) {
+      seconds--;
+      secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds);
     }
 
-    if (secondsCounter === 0) {
-      minutesCounter--;
-      minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutesCounter) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutesCounter) : '00';
-      secondsCounter = 60;
+    if (seconds === 0) {
+      minutes--;
+      minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutes) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutes) : '00';
+      seconds = 60;
     }
 
-    if (minutesCounter === -2) {
+    if (minutes === -2) {
       timerStatus.runningTimer = !timerStatus.runningTimer;
       timerStatus.runningBreakTimer = !timerStatus.runningBreakTimer;
       title.classList.toggle('hidden');
