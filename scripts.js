@@ -13,7 +13,8 @@ var timerStatus = {
   defaultStartingValue: 0,
   runningTimer: false,
   defaultBreakTimeValue: 0,
-  runningBreakTimer: false
+  runningBreakTimer: false,
+  stopped: false
 }
 
 var helpers = {
@@ -34,38 +35,38 @@ startButton.addEventListener('click', function() {
 
   helpers.pauseAndResetSound();
 
-  if (timerStatus.runningTimer || (!timerStatus.runningTimer && !timerStatus.runningBreakTimer)) {
+  if (timerStatus.stopped) {
+    timerStatus.stopped = false;
+    startButton.classList.add('hidden');
+    stopButton.classList.remove('hidden');
+    startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
+
+  } else if (timerStatus.runningTimer || (!timerStatus.runningTimer && !timerStatus.runningBreakTimer)) {
     console.log('run the default timer');
     //TODO: change the general colors of the application for DEFAULT running mode here
     timerStatus.runningTimer = true;
     startButton.classList.add('hidden');
     stopButton.classList.remove('hidden');
     restartButton.classList.remove('hidden');
-    startTimer(timerStatus.defaultStartingValue); // <-- here
-  }
+    startTimer(timerStatus.defaultStartingValue - 1);
 
-  if (timerStatus.runningBreakTimer) {
+  } else if (timerStatus.runningBreakTimer) {
     console.log('run break timer');
     //TODO: change the general colors of the application for BREAK running mode here
     startButton.classList.add('hidden');
-    startTimer(timerStatus.defaultBreakTimeValue); // <-- here
+    startTimer(timerStatus.defaultBreakTimeValue - 1);
   }  
 });
 
 stopButton.addEventListener('click', function() {
-  // TODO: create an `stopTimer();` function and put all of this code inside:
-  console.log('stop button pressed');
-  stopButton.classList.add('hidden');
-  startButton.classList.remove('hidden');
-  timerStatus.currentMinutes = minutesDisplay.textContent;
-  timerStatus.currentSeconds = secondsDisplay.textContent;
-  clearInterval(timerStatus.setTimer);
+  stopTimer();
 });
 
 // TODO: maybe rename this function for something like -> startTimer();
 function startTimer(minutes, seconds) {
+
   // Checking if the function was passed with arguments, if not give them a default value
-  minutes = minutes === undefined ? '00' : minutes - 1;
+  minutes = minutes === undefined ? '00' : minutes;
   seconds = seconds === undefined ? 60 : seconds;
 
   timerStatus.setTimer = setInterval(function() {
@@ -95,4 +96,13 @@ function startTimer(minutes, seconds) {
     }
 
   }, 1000);
+}
+
+function stopTimer() {
+  stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
+  startButton.classList.remove('hidden'); // TODO: research if i can change this for toggle?
+  timerStatus.stopped = true;
+  timerStatus.currentMinutes = minutesDisplay.textContent;
+  timerStatus.currentSeconds = secondsDisplay.textContent;
+  clearInterval(timerStatus.setTimer);
 }
