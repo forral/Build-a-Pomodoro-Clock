@@ -6,25 +6,30 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div class="app">
+
+  <div class="app-wrapper">
 
     <div class="top-bar"></div>
 
-    <div class="title-wrapper">
-      <div class="title hidden">break time</div>
+    <div class="center-wrapper">
+      <div class="center-app">
+        <div class="title-wrapper">
+          <div class="title hidden">break time</div>
+        </div>
+        <div class="display">
+          <p id="minutes"></p>
+          <p id="seconds"></p>
+        </div>
+      </div>
+      <div class="backgrounds"></div>
     </div>
 
-    <div class="display">
-      <p id="minutes"></p>
-      <p id="seconds"></p>
-    </div>
-
-    <div class="botton-bar">
+    <div class="bottom-bar">
       <button class='start'>start</button>
       <button class="stop hidden">stop</button>
       <button class="restart hidden">restart</button>
     </div>
-
+  
   </div>
 
   <audio id="alarm-beep" loop="true">
