@@ -15,6 +15,23 @@ html {
 
 .display {
   position: absolute;
+  height: 712px;
+  width: 375px;
+  padding-top: 100px;
+}
+
+.backgrounds {
+  height: 712px;
+  width: 375px;
+  background-color: black;
+}
+
+.backgrounds:after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 375px;
+  background: red;
 }
 
 .bottom-bar {

@@ -37,6 +37,9 @@ init();
 
 startButton.addEventListener('click', function() {
 
+  console.log('play button clicked');
+  
+
   helpers.pauseAndResetSound();
 
   if (timerStatus.stopped) {
