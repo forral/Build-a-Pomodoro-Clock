@@ -5,6 +5,7 @@ var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
 var title = document.querySelector('.title');
 var alarmSound = document.getElementById('alarm-beep');
+var backgroundApp = document.querySelector('.backgrounds');
 
 var timerStatus = {
   setTimer: null,
@@ -131,3 +132,6 @@ function restart() {
   init();
   clearInterval(timerStatus.setTimer);
 }
+                // v -> timeSet
+// ((25 * 0.10) / 25) * 1000
+// ((minutesDisplay.textContent * 0.10) / timerStatus.defaultStartingValue) * 1000

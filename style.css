@@ -10,20 +10,31 @@ html {
 
 .top-bar {
   height: 50px;
-  background-color: grey;
+  background-color: #23272b;
+  border-bottom: 1px solid grey;
 }
 
 .display {
   position: absolute;
   height: 712px;
   width: 375px;
-  padding-top: 100px;
+  color: #FF1A66;
+  text-align: center;
+  font-size: 150px;
+}
+
+#seconds {
+  line-height: 70px;
+}
+
+.counter-wrapper {
+  padding-top: 50%;
 }
 
 .backgrounds {
   height: 712px;
   width: 375px;
-  background-color: black;
+  background-color: white;
 }
 
 .backgrounds:after {
@@ -31,12 +42,13 @@ html {
   display: block;
   height: 100%;
   width: 375px;
-  background: red;
+  background: #23272b;
 }
 
 .bottom-bar {
   height: 50px;
-  background-color: grey;
+  background-color: #23272b;
+  border-top: 1px solid grey;
 }
 
 .hidden {
