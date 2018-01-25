@@ -31,10 +31,13 @@ var helpers = {
 }
 
 function init() {
-  // set the app openning with minutes and seconds display (if there isn's any user settingd, by default it should be 25:00)
+  // set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
   minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
   secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
+  // set the background color:
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+  
+  // TODO: create the timerStatus or load it from localStorage();
 }
 
 init();
