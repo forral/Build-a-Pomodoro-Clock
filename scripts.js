@@ -5,7 +5,9 @@ var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
 var title = document.querySelector('.title');
 var alarmSound = document.getElementById('alarm-beep');
-var backgroundApp = document.querySelector('.backgrounds');
+var lightBackground = document.querySelector('.light');
+var darkBackground = document.querySelector('.dark');
+
 
 var timerStatus = {
   setTimer: null,
@@ -32,15 +34,13 @@ function init() {
   // set the app openning with minutes and seconds display (if there isn's any user settingd, by default it should be 25:00)
   minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
   secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
+  backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
 }
 
 init();
 
 startButton.addEventListener('click', function() {
-
-  console.log('play button clicked');
   
-
   helpers.pauseAndResetSound();
 
   if (timerStatus.stopped) {
@@ -106,6 +106,8 @@ function startTimer(minutes, seconds) {
       clearInterval(timerStatus.setTimer);
     }
 
+    backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+
   }, 1000);
 }
 
@@ -135,3 +137,8 @@ function restart() {
                 // v -> timeSet
 // ((25 * 0.10) / 25) * 1000
 // ((((Number(minutesDisplay.textContent) * 60) + (Number(secondsDisplay.textContent))) * 0.10) / (Number(timerStatus.defaultStartingValue) * 60)) * 1000
+
+function backgroundChangeColor(minutes, seconds) {
+  lightBackground.style.height = (100 - darkBackground.style.height.replace(/\%/, '')) + '%';
+  darkBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timerStatus.defaultStartingValue) * 60)) * 1000) + '%';
+}

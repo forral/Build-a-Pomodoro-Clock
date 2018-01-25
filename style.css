@@ -36,13 +36,13 @@ html {
   height: 712px;
 }
 
-.red {
+.light {
   background-color: white;
   height: 50%;
   width: 100%;
 }
 
-.black {
+.dark {
   background-color: #23272b;
   height: 50%;
   width: 100%;
