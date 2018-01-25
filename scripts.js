@@ -134,4 +134,4 @@ function restart() {
 }
                 // v -> timeSet
 // ((25 * 0.10) / 25) * 1000
-// ((minutesDisplay.textContent * 0.10) / timerStatus.defaultStartingValue) * 1000
+// ((((Number(minutesDisplay.textContent) * 60) + (Number(secondsDisplay.textContent))) * 0.10) / (Number(timerStatus.defaultStartingValue) * 60)) * 1000
