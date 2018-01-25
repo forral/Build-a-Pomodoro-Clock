@@ -24,10 +24,11 @@ html {
 
 .display {
   position: absolute;
-  top: 180px;
-  left: 388px;
+  top: 290px;
+  left: 228px;
   color: #FF1A66;
   font-size: 150px;
+  line-height: 125px;
 }
 
 .background-wrapper {
@@ -36,13 +37,13 @@ html {
 }
 
 .red {
-  background-color: red;
+  background-color: white;
   height: 50%;
   width: 100%;
 }
 
 .black {
-  background-color: black;
+  background-color: #23272b;
   height: 50%;
   width: 100%;
 }
