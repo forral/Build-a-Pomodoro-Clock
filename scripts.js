@@ -13,7 +13,7 @@ var timerStatus = {
   setTimer: null,
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultStartingValue: 25,
+  defaultStartingValue: 1,
   runningTimer: false,
   defaultBreakTimeValue: 5,
   runningBreakTimer: false,
@@ -97,12 +97,13 @@ function startTimer(minutes, seconds) {
       minutes--;
       minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutes) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutes) : '00';
       seconds = 60;
+      secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds);
     }
 
     if (minutes === -2) {
       timerStatus.runningTimer = !timerStatus.runningTimer;
       timerStatus.runningBreakTimer = !timerStatus.runningBreakTimer;
-      title.classList.toggle('hidden');
+      // title.classList.toggle('hidden');
       startButton.classList.toggle('hidden');
       minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultBreakTimeValue);
       alarmSound.play();
