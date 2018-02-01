@@ -13,7 +13,7 @@ var timerStatus = {
   setTimer: null,
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultStartingValue: 1,
+  defaultStartingValue: 3,
   runningTimer: false,
   defaultBreakTimeValue: 5,
   runningBreakTimer: false,
@@ -75,12 +75,14 @@ restartButton.addEventListener('click', function(){
   restart();
 });
 
-// TODO: maybe rename this function for something like -> startTimer();
 function startTimer(minutes, seconds) {
 
   // Checking if the function was passed with arguments, if not give them a default value
   minutes = minutes === undefined ? '00' : minutes;
   seconds = seconds === undefined ? 60 : seconds;
+
+  console.log(minutes, seconds);
+  
 
   timerStatus.setTimer = setInterval(function() {
 
@@ -138,9 +140,6 @@ function restart() {
   init();
   clearInterval(timerStatus.setTimer);
 }
-                // v -> timeSet
-// ((25 * 0.10) / 25) * 1000
-// ((((Number(minutesDisplay.textContent) * 60) + (Number(secondsDisplay.textContent))) * 0.10) / (Number(timerStatus.defaultStartingValue) * 60)) * 1000
 
 function backgroundChangeColor(minutes, seconds) {
   lightBackground.style.height = (100 - darkBackground.style.height.replace(/\%/, '')) + '%';
