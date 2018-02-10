@@ -8,12 +8,11 @@ var alarmSound = document.getElementById('alarm-beep');
 var lightBackground = document.querySelector('.light');
 var darkBackground = document.querySelector('.dark');
 
-
 var timerStatus = {
   setTimer: null,
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultStartingValue: 3,
+  defaultStartingValue: 35,
   runningTimer: false,
   defaultBreakTimeValue: 5,
   runningBreakTimer: false,
@@ -32,8 +31,9 @@ var helpers = {
 
 function init() {
   // set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
-  minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
-  secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
+    minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
+    secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
+
   // set the background color:
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
   
@@ -99,7 +99,7 @@ function startTimer(minutes, seconds) {
       minutes--;
       minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutes) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutes) : '00';
       seconds = 60;
-      secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds);
+      secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds) - 1;
     }
 
     if (minutes === -2) {
