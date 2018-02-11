@@ -6,14 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+    <button class="start-button">start</button>
+    <button class="stop-button">stop</button>
 <body>
     <script>
         
-    
-        
+        var startButton = document.querySelector('.start-button');
+        var stopButton = document.querySelector('.stop-button');
+        var newDate = new Date();
 
-        
-        
+        var timerStatus = {
+            setTimer: null
+        }
+
+        function startTimer() {
+            timerStatus.setTimer = setInterval(function() {
+
+                console.log('im alive');
+                
+
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerStatus.setTimer);
+        }
+
+        startButton.addEventListener('click', function() {
+            startTimer();
+        });
+
+        stopButton.addEventListener('click', function () {
+            stopTimer();
+        });
+
     </script>
 </body>
 </html>
