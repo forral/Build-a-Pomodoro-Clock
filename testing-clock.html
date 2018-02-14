@@ -20,10 +20,18 @@
         }
 
         function startTimer() {
+
+            var seconds = 60;
+            var minutes = 0;
+
             timerStatus.setTimer = setInterval(function() {
 
-                console.log('im alive');
-                
+                if (seconds > 0) {
+                    seconds--;
+                    console.log(minutes + ':' + seconds);
+                } else {
+                    stopTimer();
+                }
 
             }, 1000);
         }
