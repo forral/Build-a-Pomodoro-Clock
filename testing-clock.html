@@ -16,22 +16,33 @@
         var newDate = new Date();
 
         var timerStatus = {
-            setTimer: null
+            setTimer: null,
+            minutes: 25 // read like: how many times do I whant the seconds counter to run 60 seconds?
         }
 
         function startTimer() {
 
             var seconds = 60;
-            var minutes = 0;
+            timerStatus.minutes--;
 
             timerStatus.setTimer = setInterval(function() {
 
-                if (seconds > 0) {
-                    seconds--;
-                    console.log(minutes + ':' + seconds);
+                if (timerStatus.minutes === -1) {
+                    clearInterval(timerStatus.setTimer);
                 } else {
-                    stopTimer();
+                    // seconds functionality
+                    if (seconds > 1) {
+                        seconds--;
+                        console.log(timerStatus.minutes + ':' + seconds);
+                    } else {
+                        seconds--;
+                        console.log(timerStatus.minutes + ':' + seconds);
+                        timerStatus.minutes--;
+                        seconds = 60;
+                    }
+                    // end of seconds functionality
                 }
+
 
             }, 1000);
         }
