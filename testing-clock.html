@@ -13,11 +13,10 @@
         
         var startButton = document.querySelector('.start-button');
         var stopButton = document.querySelector('.stop-button');
-        var newDate = new Date();
 
         var timerStatus = {
             setTimer: null,
-            minutes: 25 // read like: how many times do I whant the seconds counter to run 60 seconds?
+            minutes: 1 // read like: how many times do I whant the seconds counter to run 60 seconds?
         }
 
         function startTimer() {
@@ -42,8 +41,6 @@
                     }
                     // end of seconds functionality
                 }
-
-
             }, 1000);
         }
 
