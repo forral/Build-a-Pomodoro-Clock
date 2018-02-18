@@ -1,8 +1,8 @@
 var startButton = document.querySelector('.start');
 var stopButton = document.querySelector('.stop');
 // var restartButton = document.querySelector('.restart');
-// var minutesDisplay = document.getElementById('minutes');
-// var secondsDisplay = document.getElementById('seconds');
+var minutesDisplay = document.getElementById('minutes');
+var secondsDisplay = document.getElementById('seconds');
 // var title = document.querySelector('.title');
 // var alarmSound = document.getElementById('alarm-beep');
 // var lightBackground = document.querySelector('.light');
@@ -10,7 +10,7 @@ var stopButton = document.querySelector('.stop');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 1 // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 2 // read like: how many times do I whant the seconds counter to run 60 seconds?
   // currentMinutes: 0,
   // currentSeconds: 0,
   // defaultStartingValue: 35,
@@ -44,6 +44,8 @@ var timerStatus = {
 // init();
 
 startButton.addEventListener('click', function() {
+
+  startTimer();
   
   // helpers.pauseAndResetSound();
 
@@ -94,14 +96,22 @@ function startTimer(/* minutes, seconds */) {
       // seconds functionality
       if (seconds > 1) {
         seconds--;
+
         console.log(timerStatus.minutes + ':' + seconds);
+        minutesDisplay.textContent = timerStatus.minutes;
+        secondsDisplay.textContent = seconds;
+
       } else {
         seconds--;
+
         console.log(timerStatus.minutes + ':' + seconds);
+        minutesDisplay.textContent = timerStatus.minutes;
+        secondsDisplay.textContent = seconds;
+
         timerStatus.minutes--;
         seconds = 60;
       }
-      // end of seconds functionality
+    } // end of seconds functionality
 
     // paint the display with first values set, make sure if the number is less than zero then put an zero in front of it.
     // minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutes) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutes) : '00';
