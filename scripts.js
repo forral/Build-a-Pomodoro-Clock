@@ -10,7 +10,7 @@ var secondsDisplay = document.getElementById('seconds');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 1 // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 25 // read like: how many times do I whant the seconds counter to run 60 seconds?
   // currentMinutes: 0,
   // currentSeconds: 0,
   // defaultStartingValue: 35,
@@ -20,19 +20,19 @@ var timerStatus = {
   // stopped: false
 }
 
-// var helpers = {
-//   zeroOnFrontOfSingleDigit: function(number) {
-//     return number < 10 ? '0' + number : number;
-//   },
-//   pauseAndResetSound: function() {
-//     alarmSound.pause();
-//     alarmSound.currentTime = 0;
-//   }
-// }
+var helpers = {
+  twoDigitFormat: function(number) {
+    return number < 10 ? '0' + number : number;
+  }
+  // pauseAndResetSound: function() {
+  //   alarmSound.pause();
+  //   alarmSound.currentTime = 0;
+  // }
+}
 
 function init() {
   // set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
-    minutesDisplay.textContent = timerStatus.minutes < 10 ? '0' + timerStatus.minutes : timerStatus.minutes;
+    minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
     secondsDisplay.textContent = '00';
 
   // set the background color:
@@ -97,16 +97,16 @@ function startTimer(/* minutes, seconds */) {
       if (seconds > 1) {
         seconds--;
 
-        console.log(timerStatus.minutes + ':' + seconds);
-        minutesDisplay.textContent = timerStatus.minutes;
-        secondsDisplay.textContent = seconds;
+        console.log(helpers.twoDigitFormat(timerStatus.minutes) + ':' + helpers.twoDigitFormat(seconds));
+        minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes)
+        secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
 
       } else {
         seconds--;
 
-        console.log(timerStatus.minutes + ':' + seconds);
-        minutesDisplay.textContent = timerStatus.minutes;
-        secondsDisplay.textContent = seconds;
+        console.log(helpers.twoDigitFormat(timerStatus.minutes) + ':' + helpers.twoDigitFormat(seconds));
+        minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes)
+        secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
 
         timerStatus.minutes--;
         seconds = 60;
