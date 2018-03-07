@@ -10,7 +10,7 @@ var secondsDisplay = document.getElementById('seconds');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 2 // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 1 // read like: how many times do I whant the seconds counter to run 60 seconds?
   // currentMinutes: 0,
   // currentSeconds: 0,
   // defaultStartingValue: 35,
@@ -30,18 +30,18 @@ var timerStatus = {
 //   }
 // }
 
-// function init() {
-//   // set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
-//     minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultStartingValue);
-//     secondsDisplay.textContent = minutesDisplay.textContent === '00' ? '60' : '00';
+function init() {
+  // set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
+    minutesDisplay.textContent = timerStatus.minutes < 10 ? '0' + timerStatus.minutes : timerStatus.minutes;
+    secondsDisplay.textContent = '00';
 
-//   // set the background color:
-//   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+  // set the background color:
+  // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
   
-//   // TODO: create the timerStatus or load it from localStorage();
-// }
+  // TODO: create the timerStatus or load it from localStorage();
+}
 
-// init();
+init();
 
 startButton.addEventListener('click', function() {
 
