@@ -1,6 +1,6 @@
 var startButton = document.querySelector('.start');
 var stopButton = document.querySelector('.stop');
-// var restartButton = document.querySelector('.restart');
+var restartButton = document.querySelector('.restart');
 var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
 // var title = document.querySelector('.title');
@@ -31,7 +31,7 @@ var helpers = {
 }
 
 function init() {
-  // set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
+  // TODO: set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
     minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
     secondsDisplay.textContent = '00';
 
@@ -44,9 +44,7 @@ function init() {
 init();
 
 startButton.addEventListener('click', function() {
-
   startTimer();
-  
   // helpers.pauseAndResetSound();
 
   // if (timerStatus.stopped) {
@@ -71,8 +69,7 @@ startButton.addEventListener('click', function() {
 });
 
 stopButton.addEventListener('click', function() {
-  // stopTimer();
-  clearInterval(timerStatus.setTimer);
+  stopTimer();
 });
 
 // restartButton.addEventListener('click', function(){
@@ -80,6 +77,10 @@ stopButton.addEventListener('click', function() {
 // });
 
 function startTimer(/* minutes, seconds */) {
+  
+  startButton.classList.add('hidden');
+  stopButton.classList.remove('hidden');
+  restartButton.classList.remove('hidden');
 
   // Checking if the function was passed with arguments, if not give them a default value
   // minutes = minutes === undefined ? '00' : minutes;
@@ -144,19 +145,19 @@ function startTimer(/* minutes, seconds */) {
   }, 1000);
 }
 
-// function stopTimer() {
+function stopTimer() {
 //   stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
 //   startButton.classList.remove('hidden'); // TODO: research if i can change this for toggle?
 //   timerStatus.stopped = true;
 //   timerStatus.currentMinutes = minutesDisplay.textContent;
 //   timerStatus.currentSeconds = secondsDisplay.textContent;
-//   clearInterval(timerStatus.setTimer);
-// }
+  clearInterval(timerStatus.setTimer);
+}
 
 // function restart() {
 //   // TODO: all the object values should be on the init function.
 //   // NOTE/TODO: this functionality it's only for the default timer not for the break timer,
-//   // still have to code that
+//   // still have for code that
 //   timerStatus.currentMinutes = 0;
 //   timerStatus.currentSeconds = 0;
 //   timerStatus.runningTimer = false;
