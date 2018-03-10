@@ -82,9 +82,9 @@ stopButton.addEventListener('click', function() {
   stopTimer();
 });
 
-// restartButton.addEventListener('click', function(){
-//   // restart();
-// });
+restartButton.addEventListener('click', function(){
+  restart();
+});
 
 function startTimer(minutes, seconds) {
   
@@ -111,6 +111,7 @@ function startTimer(minutes, seconds) {
       if (seconds > 1) {
         seconds--;
 
+        // paint (maybe turn this into a function)
         console.log(helpers.twoDigitFormat(minutes) + ':' + helpers.twoDigitFormat(seconds));
         minutesDisplay.textContent = helpers.twoDigitFormat(minutes)
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
@@ -118,6 +119,7 @@ function startTimer(minutes, seconds) {
       } else {
         seconds--;
 
+        // paint (maybe turn this into a function)
         console.log(helpers.twoDigitFormat(minutes) + ':' + helpers.twoDigitFormat(seconds));
         minutesDisplay.textContent = helpers.twoDigitFormat(minutes)
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
@@ -167,20 +169,21 @@ function stopTimer() {
   clearInterval(timerStatus.setTimer);
 }
 
-// function restart() {
+function restart() {
 //   // TODO: all the object values should be on the init function.
 //   // NOTE/TODO: this functionality it's only for the default timer not for the break timer,
 //   // still have for code that
-//   timerStatus.currentMinutes = 0;
-//   timerStatus.currentSeconds = 0;
-//   timerStatus.runningTimer = false;
-//   timerStatus.runningBreakTimer = false;
-//   timerStatus.stopped = false;
-//   stopButton.classList.add('hidden');
-//   startButton.classList.remove('hidden');
-//   init();
-//   clearInterval(timerStatus.setTimer);
-// }
+  timerStatus.currentMinutes = 0;
+  timerStatus.currentSeconds = 0;
+  // timerStatus.runningTimer = false;
+  // timerStatus.runningBreakTimer = false;
+  timerStatus.stopped = false;
+  stopButton.classList.add('hidden');
+  startButton.classList.remove('hidden');
+  restartButton.classList.add('hidden');
+  init();
+  clearInterval(timerStatus.setTimer);
+}
 
 // function backgroundChangeColor(minutes, seconds) {
 //   lightBackground.style.height = (100 - darkBackground.style.height.replace(/\%/, '')) + '%';
