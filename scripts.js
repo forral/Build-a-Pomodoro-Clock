@@ -3,10 +3,10 @@ var stopButton = document.querySelector('.stop');
 var restartButton = document.querySelector('.restart');
 var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
+var alarmSound = document.getElementById('alarm-beep');
+var lightBackground = document.querySelector('.light');
+var darkBackground = document.querySelector('.dark');
 // var title = document.querySelector('.title');
-// var alarmSound = document.getElementById('alarm-beep');
-// var lightBackground = document.querySelector('.light');
-// var darkBackground = document.querySelector('.dark');
 
 var timerStatus = {
   setTimer: null,
@@ -22,17 +22,15 @@ var timerStatus = {
 
 var helpers = {
   twoDigitFormat: function(number) {
-
     if (number === '00') {
       return number
     }
-
     return number < 10 ? '0' + number : number;
+  },
+  pauseAndResetSound: function() {
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
   }
-  // pauseAndResetSound: function() {
-  //   alarmSound.pause();
-  //   alarmSound.currentTime = 0;
-  // }
 }
 
 function init() {
@@ -110,6 +108,10 @@ function startTimer(minutes, seconds) {
   timerStatus.setTimer = setInterval(function() {
 
     if (minutes === -1) {
+
+      console.log('finished: sound alarm!');
+      alarmSound.play();
+
       clearInterval(timerStatus.setTimer);
     } else {
       // seconds functionality
