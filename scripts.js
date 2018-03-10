@@ -10,7 +10,7 @@ var secondsDisplay = document.getElementById('seconds');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 25, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 1, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
   // defaultStartingValue: 35,
@@ -22,6 +22,11 @@ var timerStatus = {
 
 var helpers = {
   twoDigitFormat: function(number) {
+
+    if (number === '00') {
+      return number
+    }
+
     return number < 10 ? '0' + number : number;
   }
   // pauseAndResetSound: function() {
@@ -170,9 +175,9 @@ function stopTimer() {
 }
 
 function restart() {
-//   // TODO: all the object values should be on the init function.
-//   // NOTE/TODO: this functionality it's only for the default timer not for the break timer,
-//   // still have for code that
+  // TODO: all the object values should be on the init function.
+  // NOTE/TODO: this functionality it's only for the default timer not for the break timer,
+  // still have for code that
   timerStatus.currentMinutes = 0;
   timerStatus.currentSeconds = 0;
   // timerStatus.runningTimer = false;
