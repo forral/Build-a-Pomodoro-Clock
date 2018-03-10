@@ -10,14 +10,14 @@ var secondsDisplay = document.getElementById('seconds');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 25 // read like: how many times do I whant the seconds counter to run 60 seconds?
-  // currentMinutes: 0,
-  // currentSeconds: 0,
+  minutes: 25, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  currentMinutes: 0,
+  currentSeconds: 0,
   // defaultStartingValue: 35,
   // runningTimer: false,
   // defaultBreakTimeValue: 5,
   // runningBreakTimer: false,
-  // stopped: false
+  stopped: false
 }
 
 var helpers = {
@@ -44,8 +44,18 @@ function init() {
 init();
 
 startButton.addEventListener('click', function() {
-  startTimer();
   // helpers.pauseAndResetSound();
+
+  if (timerStatus.stopped) {
+    timerStatus.stopped = !timerStatus.stopped;
+
+    startButton.classList.add('hidden');
+    stopButton.classList.remove('hidden');
+
+    startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
+  } else {
+    startTimer();
+  }
 
   // if (timerStatus.stopped) {
   //   timerStatus.stopped = false;
@@ -76,40 +86,43 @@ stopButton.addEventListener('click', function() {
 //   // restart();
 // });
 
-function startTimer(/* minutes, seconds */) {
+function startTimer(minutes, seconds) {
   
   startButton.classList.add('hidden');
   stopButton.classList.remove('hidden');
   restartButton.classList.remove('hidden');
 
-  // Checking if the function was passed with arguments, if not give them a default value
+  // Checking if the function was passed with arguments if not, give them a default value
   // minutes = minutes === undefined ? '00' : minutes;
   // seconds = seconds === undefined ? 60 : seconds;
-
-  var seconds = 60;
-  timerStatus.minutes--;
+  
+  if (arguments.length === 0) {
+    seconds = 60;
+    minutes = timerStatus.minutes;
+    minutes--;
+  }
 
   timerStatus.setTimer = setInterval(function() {
 
-    if (timerStatus.minutes === -1) {
+    if (minutes === -1) {
       clearInterval(timerStatus.setTimer);
     } else {
       // seconds functionality
       if (seconds > 1) {
         seconds--;
 
-        console.log(helpers.twoDigitFormat(timerStatus.minutes) + ':' + helpers.twoDigitFormat(seconds));
-        minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes)
+        console.log(helpers.twoDigitFormat(minutes) + ':' + helpers.twoDigitFormat(seconds));
+        minutesDisplay.textContent = helpers.twoDigitFormat(minutes)
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
 
       } else {
         seconds--;
 
-        console.log(helpers.twoDigitFormat(timerStatus.minutes) + ':' + helpers.twoDigitFormat(seconds));
-        minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes)
+        console.log(helpers.twoDigitFormat(minutes) + ':' + helpers.twoDigitFormat(seconds));
+        minutesDisplay.textContent = helpers.twoDigitFormat(minutes)
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
 
-        timerStatus.minutes--;
+        minutes--;
         seconds = 60;
       }
     } // end of seconds functionality
@@ -146,11 +159,11 @@ function startTimer(/* minutes, seconds */) {
 }
 
 function stopTimer() {
-//   stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
-//   startButton.classList.remove('hidden'); // TODO: research if i can change this for toggle?
-//   timerStatus.stopped = true;
-//   timerStatus.currentMinutes = minutesDisplay.textContent;
-//   timerStatus.currentSeconds = secondsDisplay.textContent;
+  stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
+  startButton.classList.remove('hidden'); // TODO: research if i can change this for toggle?
+  timerStatus.stopped = true;
+  timerStatus.currentMinutes = minutesDisplay.textContent;
+  timerStatus.currentSeconds = secondsDisplay.textContent;
   clearInterval(timerStatus.setTimer);
 }
 
