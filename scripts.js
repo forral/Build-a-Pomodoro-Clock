@@ -39,7 +39,7 @@ function init() {
     secondsDisplay.textContent = '00';
 
   // set the background color:
-  // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+  backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
   
   // TODO: create the timerStatus or load it from localStorage();
 }
@@ -122,7 +122,7 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-    // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+    backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
 
   }, 1000);
 }
@@ -152,7 +152,7 @@ function restart() {
   clearInterval(timerStatus.setTimer);
 }
 
-// function backgroundChangeColor(minutes, seconds) {
-//   lightBackground.style.height = (100 - darkBackground.style.height.replace(/\%/, '')) + '%';
-//   darkBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timerStatus.defaultStartingValue) * 60)) * 1000) + '%';
-// }
+function backgroundChangeColor(minutes, seconds) {
+  darkBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timerStatus.minutes) * 60)) * 1000) + '%';
+  lightBackground.style.height = (100 - darkBackground.style.height.replace(/\%/, '')) + '%';
+}
