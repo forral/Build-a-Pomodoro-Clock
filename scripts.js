@@ -109,10 +109,8 @@ function startTimer(minutes, seconds) {
 
     if (minutes === -1) {
 
-      console.log('finished: sound alarm!');
-      alarmSound.play();
-
       clearInterval(timerStatus.setTimer);
+
     } else {
       // seconds functionality
       if (seconds > 1) {
@@ -132,6 +130,10 @@ function startTimer(minutes, seconds) {
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
 
         minutes--;
+        // sound the alarm.
+        console.log('finished: sound alarm!');
+        alarmSound.play();
+        // reset the seconds value.
         seconds = 60;
       }
     } // end of seconds functionality
