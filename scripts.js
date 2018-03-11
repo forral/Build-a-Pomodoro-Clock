@@ -51,34 +51,14 @@ startButton.addEventListener('click', function() {
 
   if (timerStatus.stopped) {
     timerStatus.stopped = !timerStatus.stopped;
-
+    // change the bottons
     startButton.classList.add('hidden');
     stopButton.classList.remove('hidden');
-
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
   } else {
     startTimer();
   }
 
-  // if (timerStatus.stopped) {
-  //   timerStatus.stopped = false;
-  //   startButton.classList.add('hidden');
-  //   stopButton.classList.remove('hidden');
-  //   startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
-
-  // } else if (timerStatus.runningTimer || (!timerStatus.runningTimer && !timerStatus.runningBreakTimer)) {
-  //   //TODO: change the general colors of the application for DEFAULT running mode here
-  //   timerStatus.runningTimer = true;
-  //   startButton.classList.add('hidden');
-  //   stopButton.classList.remove('hidden');
-  //   restartButton.classList.remove('hidden');
-  //   startTimer(timerStatus.defaultStartingValue - 1);
-
-  // } else if (timerStatus.runningBreakTimer) {
-  //   //TODO: change the general colors of the application for BREAK running mode here
-  //   startButton.classList.add('hidden');
-  //   startTimer(timerStatus.defaultBreakTimeValue - 1);
-  // }  
 });
 
 stopButton.addEventListener('click', function() {
@@ -135,34 +115,12 @@ function startTimer(minutes, seconds) {
         alarmSound.play();
         // reset the seconds value.
         seconds = 60;
+
+        stopButton.classList.add('hidden');
+        startButton.classList.remove('hidden');
+
       }
     } // end of seconds functionality
-
-    // paint the display with first values set, make sure if the number is less than zero then put an zero in front of it.
-    // minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutes) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutes) : '00';
-    // secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds) > 0 ? helpers.zeroOnFrontOfSingleDigit(seconds) : '00';
-
-    // if (minutes !== -2) {
-    //   seconds--;
-    //   secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds);
-    // }
-
-    // if (seconds === 0) {
-    //   minutes--;
-    //   minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(minutes) > 0 ? helpers.zeroOnFrontOfSingleDigit(minutes) : '00';
-    //   seconds = 60;
-    //   secondsDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(seconds) - 1;
-    // }
-
-    // if (minutes === -2) {
-    //   timerStatus.runningTimer = !timerStatus.runningTimer;
-    //   timerStatus.runningBreakTimer = !timerStatus.runningBreakTimer;
-    //   // title.classList.toggle('hidden');
-    //   startButton.classList.toggle('hidden');
-    //   minutesDisplay.textContent = helpers.zeroOnFrontOfSingleDigit(timerStatus.defaultBreakTimeValue);
-    //   alarmSound.play();
-    //   clearInterval(timerStatus.setTimer);
-    // }
 
     // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
 
