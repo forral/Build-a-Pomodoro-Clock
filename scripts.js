@@ -74,14 +74,12 @@ function startTimer(minutes, seconds) {
   startButton.classList.add('hidden');
   stopButton.classList.remove('hidden');
   restartButton.classList.remove('hidden');
-
-  // Checking if the function was passed with arguments if not, give them a default value
-  // minutes = minutes === undefined ? '00' : minutes;
-  // seconds = seconds === undefined ? 60 : seconds;
   
   if (arguments.length === 0) {
     seconds = 60;
     minutes = timerStatus.minutes;
+    stopButton.classList.add('hidden');
+    startButton.classList.remove('hidden');
     minutes--;
   }
 
@@ -89,7 +87,15 @@ function startTimer(minutes, seconds) {
 
     if (minutes === -1) {
 
+      // 1. show play breaktime button or restart button.
+      // 2. show the header break time information.
+      // 3. change the order of the backgound color.
+
       clearInterval(timerStatus.setTimer);
+
+      // sound the alarm.
+      console.log('finished: sound alarm!');
+      alarmSound.play();
 
     } else {
       // seconds functionality
@@ -110,15 +116,8 @@ function startTimer(minutes, seconds) {
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
 
         minutes--;
-        // sound the alarm.
-        console.log('finished: sound alarm!');
-        alarmSound.play();
         // reset the seconds value.
         seconds = 60;
-
-        stopButton.classList.add('hidden');
-        startButton.classList.remove('hidden');
-
       }
     } // end of seconds functionality
 
