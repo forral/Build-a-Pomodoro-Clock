@@ -15,7 +15,7 @@ var timerStatus = {
   currentSeconds: 0,
   // defaultStartingValue: 35,
   // runningTimer: false,
-  // defaultBreakTimeValue: 5,
+  defaultBreakTimeValue: 5,
   break: false,
   stopped: false
 }
@@ -46,20 +46,31 @@ function init() {
 
 init();
 
+
+
+
 startButton.addEventListener('click', function() {
   // helpers.pauseAndResetSound();
 
   if (timerStatus.stopped) {
+
     timerStatus.stopped = !timerStatus.stopped;
     // change the bottons
     startButton.classList.add('hidden');
     stopButton.classList.remove('hidden');
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
+
+  } else if (timerStatus.break) {
+    console.log('tried to run the startTimer(); with break timer on');
+    // code here...
   } else {
     startTimer();
   }
 
 });
+
+
+
 
 stopButton.addEventListener('click', function() {
   stopTimer();
@@ -78,22 +89,23 @@ function startTimer(minutes, seconds) {
   if (arguments.length === 0) {
     seconds = 60;
     minutes = timerStatus.minutes;
-    // stopButton.classList.add('hidden');
-    // startButton.classList.remove('hidden');
     minutes--;
   }
 
   timerStatus.setTimer = setInterval(function() {
 
-    // when minutes = '00' and seconds = '00'
+    // when minutesTextContent === '00' and secondsTextContent === '00'
     if (minutes === -1) {
 
-
+      // Switch to breaktime mode
       timerStatus.break = true;
-      
-      // 1. show play breaktime button or restart button.
-      // 2. show the header break time information.
-      // 3. change the order of the backgound color.
+      stopButton.classList.add('hidden');
+      startButton.classList.remove('hidden');
+
+      // 1. show the default break timer values on the page.
+      // 2. show play breaktime button or restart button.
+      // 3. show the header break time information.
+      // 4. change the order of the backgound color.
 
       // Stop the setInterval
       clearInterval(timerStatus.setTimer);
