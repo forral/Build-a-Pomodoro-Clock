@@ -16,7 +16,7 @@ var timerStatus = {
   // defaultStartingValue: 35,
   // runningTimer: false,
   // defaultBreakTimeValue: 5,
-  // runningBreakTimer: false,
+  break: false,
   stopped: false
 }
 
@@ -78,22 +78,27 @@ function startTimer(minutes, seconds) {
   if (arguments.length === 0) {
     seconds = 60;
     minutes = timerStatus.minutes;
-    stopButton.classList.add('hidden');
-    startButton.classList.remove('hidden');
+    // stopButton.classList.add('hidden');
+    // startButton.classList.remove('hidden');
     minutes--;
   }
 
   timerStatus.setTimer = setInterval(function() {
 
+    // when minutes = '00' and seconds = '00'
     if (minutes === -1) {
 
+
+      timerStatus.break = true;
+      
       // 1. show play breaktime button or restart button.
       // 2. show the header break time information.
       // 3. change the order of the backgound color.
 
+      // Stop the setInterval
       clearInterval(timerStatus.setTimer);
 
-      // sound the alarm.
+      // Sound the alarm.
       console.log('finished: sound alarm!');
       alarmSound.play();
 
