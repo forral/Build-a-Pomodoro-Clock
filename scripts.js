@@ -22,7 +22,7 @@ var timerStatus = {
 
 var helpers = {
   twoDigitFormat: function(number) {
-    if (number === '00') {
+    if (number.length === 2) {
       return number
     }
     return number < 10 ? '0' + number : number;
@@ -82,6 +82,7 @@ restartButton.addEventListener('click', function(){
 
 function startTimer(minutes, seconds) {
   
+  // this code should be in the event listener
   startButton.classList.add('hidden');
   stopButton.classList.remove('hidden');
   restartButton.classList.remove('hidden');
@@ -102,6 +103,7 @@ function startTimer(minutes, seconds) {
   timerStatus.setTimer = setInterval(function() {
 
     // when minutesTextContent === '00' and secondsTextContent === '00'
+    // TODO, test this code because I think minutes is allways a string so it never be === -1
     if (minutes === -1) {
 
       // Switch to breaktime mode
