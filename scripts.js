@@ -10,12 +10,12 @@ var darkBackground = document.querySelector('.dark');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 2, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 1, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
   // defaultStartingValue: 35,
   // runningTimer: false,
-  defaultBreakTimeValue: 1,
+  defaultBreakTimeValue: 2,
   break: false,
   stopped: false
 }
@@ -52,6 +52,7 @@ init();
 startButton.addEventListener('click', function() {
   // helpers.pauseAndResetSound();
 
+  // run the timer after a stop button was pressed
   if (timerStatus.stopped) {
 
     timerStatus.stopped = !timerStatus.stopped;
@@ -68,6 +69,9 @@ startButton.addEventListener('click', function() {
 
     startTimer(timerStatus.defaultBreakTimeValue);
   } else {
+    startButton.classList.add('hidden');
+    stopButton.classList.remove('hidden');
+    restartButton.classList.remove('hidden');
     startTimer();
   }
 
@@ -84,12 +88,11 @@ restartButton.addEventListener('click', function(){
   restart();
 });
 
+
+
+
+
 function startTimer(minutes, seconds) {
-  
-  // this code should be in the event listener
-  startButton.classList.add('hidden');
-  stopButton.classList.remove('hidden');
-  restartButton.classList.remove('hidden');
   
   // default setup
   if (arguments.length === 0) {
@@ -114,11 +117,6 @@ function startTimer(minutes, seconds) {
       timerStatus.break = !timerStatus.break;
       stopButton.classList.add('hidden');
       startButton.classList.remove('hidden');
-
-      // 1. show the default break timer values on the page.
-      // 2. show play breaktime button or restart button.
-      // 3. show the header break time information.
-      // 4. change the order of the backgound color.
 
       // Stop the setInterval
       clearInterval(timerStatus.setTimer);
@@ -153,8 +151,14 @@ function startTimer(minutes, seconds) {
 
     backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
 
-  }, 300);
+  }, 100);
 }
+
+
+
+
+
+
 
 function stopTimer() {
   stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
