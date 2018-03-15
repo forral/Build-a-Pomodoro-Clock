@@ -10,12 +10,12 @@ var darkBackground = document.querySelector('.dark');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 5, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 2, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
   // defaultStartingValue: 35,
   // runningTimer: false,
-  defaultBreakTimeValue: 5,
+  defaultBreakTimeValue: 1,
   break: false,
   stopped: false
 }
@@ -62,6 +62,10 @@ startButton.addEventListener('click', function() {
 
   } else if (timerStatus.break) {
     console.log('tried to run the startTimer(); with break timer on');
+    
+    // change textContent to the break time mode
+    // minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.defaultBreakTimeValue);    
+
     startTimer(timerStatus.defaultBreakTimeValue);
   } else {
     startTimer();
@@ -107,7 +111,7 @@ function startTimer(minutes, seconds) {
     if (minutes === -1) {
 
       // Switch to breaktime mode
-      timerStatus.break = true;
+      timerStatus.break = !timerStatus.break;
       stopButton.classList.add('hidden');
       startButton.classList.remove('hidden');
 
@@ -149,7 +153,7 @@ function startTimer(minutes, seconds) {
 
     backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
 
-  }, 1000);
+  }, 300);
 }
 
 function stopTimer() {
