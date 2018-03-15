@@ -4,8 +4,8 @@ var restartButton = document.querySelector('.restart');
 var minutesDisplay = document.getElementById('minutes');
 var secondsDisplay = document.getElementById('seconds');
 var alarmSound = document.getElementById('alarm-beep');
-var lightBackground = document.querySelector('.light');
-var darkBackground = document.querySelector('.dark');
+var downBackground = document.querySelector('.down');
+var upBackground = document.querySelector('.up');
 // var title = document.querySelector('.title');
 
 var timerStatus = {
@@ -39,6 +39,16 @@ function init() {
     secondsDisplay.textContent = '00';
 
   // set the background color:
+  // 1st. set the color to the DOM elements
+  if (timerStatus.break) {
+    upBackground.style.backgroundColor = 'white';
+    downBackground.style.backgroundColor = '#23272b';
+  } else {
+    // default
+    upBackground.style.backgroundColor = '#23272b';
+    downBackground.style.backgroundColor = 'white';
+  }
+  // 2st. set the height
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
   
   // TODO: create the timerStatus or load it from localStorage();
@@ -62,12 +72,16 @@ startButton.addEventListener('click', function() {
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
 
   } else if (timerStatus.break) {
-    console.log('tried to run the startTimer(); with break timer on');
-    
-    // change textContent to the break time mode
-    // minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.defaultBreakTimeValue);    
 
+    upBackground.style.backgroundColor = 'white';
+    downBackground.style.backgroundColor = '#23272b';
+    upBackground.style.height = '100%';
+    downBackground.style.height = '0%';
+    backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+
+    console.log('tried to run the startTimer(); with break timer on');
     startTimer(timerStatus.defaultBreakTimeValue);
+
   } else {
     startButton.classList.add('hidden');
     stopButton.classList.remove('hidden');
@@ -110,10 +124,9 @@ function startTimer(minutes, seconds) {
   timerStatus.setTimer = setInterval(function() {
 
     // when minutesTextContent === '00' and secondsTextContent === '00'
-    // TODO, test this code because I think minutes is allways a string so it never be === -1
     if (minutes === -1) {
 
-      // Switch to breaktime mode
+      // Switching between default and break mode
       timerStatus.break = !timerStatus.break;
       stopButton.classList.add('hidden');
       startButton.classList.remove('hidden');
@@ -124,6 +137,8 @@ function startTimer(minutes, seconds) {
       // Sound the alarm.
       console.log('finished: sound alarm!');
       alarmSound.play();
+
+      // setup the backgrounds
 
     } else {
       // seconds functionality
@@ -186,6 +201,6 @@ function restart() {
 }
 
 function backgroundChangeColor(minutes, seconds) {
-  darkBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timerStatus.minutes) * 60)) * 1000) + '%';
-  lightBackground.style.height = (100 - darkBackground.style.height.replace(/\%/, '')) + '%';
+  upBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timerStatus.minutes) * 60)) * 1000) + '%';
+  downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
 }
