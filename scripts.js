@@ -38,25 +38,13 @@ function init() {
     minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
     secondsDisplay.textContent = '00';
 
-  // set the background color:
-  // 1st. set the color to the DOM elements
-  if (timerStatus.break) {
-    upBackground.style.backgroundColor = 'white';
-    downBackground.style.backgroundColor = '#23272b';
-  } else {
-    // default
-    upBackground.style.backgroundColor = '#23272b';
-    downBackground.style.backgroundColor = 'white';
-  }
   // 2st. set the height
-  backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+  backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
   
   // TODO: create the timerStatus or load it from localStorage();
 }
 
 init();
-
-
 
 
 startButton.addEventListener('click', function() {
@@ -73,11 +61,7 @@ startButton.addEventListener('click', function() {
 
   } else if (timerStatus.break) {
 
-    upBackground.style.backgroundColor = 'white';
-    downBackground.style.backgroundColor = '#23272b';
-    upBackground.style.height = '100%';
-    downBackground.style.height = '0%';
-    backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+    // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.break);
 
     console.log('tried to run the startTimer(); with break timer on');
     startTimer(timerStatus.defaultBreakTimeValue);
@@ -137,8 +121,13 @@ function startTimer(minutes, seconds) {
       // Sound the alarm.
       console.log('finished: sound alarm!');
       alarmSound.play();
+      
+      // upBackground.style.backgroundColor = 'white';
+      // downBackground.style.backgroundColor = '#23272b';
+      // downBackground.style.height = '0%';
+      // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.break);
 
-      // setup the backgrounds
+
 
     } else {
       // seconds functionality
@@ -164,14 +153,10 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-    backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent);
+    backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
 
   }, 100);
 }
-
-
-
-
 
 
 
@@ -200,7 +185,13 @@ function restart() {
   clearInterval(timerStatus.setTimer);
 }
 
-function backgroundChangeColor(minutes, seconds) {
-  upBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timerStatus.minutes) * 60)) * 1000) + '%';
-  downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
+// this function should called changeBackgroundSizes(); because she doesn't change colores, only height.
+function backgroundChangeColor(minutes, seconds, timer) {
+  // TODO: switch modes (default and break)
+  if (timerStatus.break) {
+    console.log('break mode inside backgroundChangeColor function');
+  } else {
+    upBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timer) * 60)) * 1000) + '%';
+    downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
+  }
 }
