@@ -52,31 +52,31 @@ startButton.addEventListener('click', function() {
 
   // run the timer after a stop button was pressed
   if (timerStatus.stopped) {
-
+    // toggle stopped mode
     timerStatus.stopped = !timerStatus.stopped;
     // change the bottons
-    startButton.classList.add('hidden');
-    stopButton.classList.remove('hidden');
+    startButton.classList.add('hidden'); // DRY
+    stopButton.classList.remove('hidden'); // DRY
+
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
 
   } else if (timerStatus.break) {
+    // change the bottons
+    startButton.classList.add('hidden'); // DRY
+    stopButton.classList.remove('hidden'); // DRY
 
-    // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.break);
-
-    console.log('tried to run the startTimer(); with break timer on');
     startTimer(timerStatus.defaultBreakTimeValue);
 
   } else {
-    startButton.classList.add('hidden');
-    stopButton.classList.remove('hidden');
+    // change the bottons
+    startButton.classList.add('hidden'); // DRY
+    stopButton.classList.remove('hidden'); // DRY
     restartButton.classList.remove('hidden');
+    
     startTimer();
   }
 
 });
-
-
-
 
 stopButton.addEventListener('click', function() {
   stopTimer();
@@ -86,10 +86,6 @@ restartButton.addEventListener('click', function(){
   restart();
 });
 
-
-
-
-
 function startTimer(minutes, seconds) {
   
   // default setup
@@ -97,25 +93,21 @@ function startTimer(minutes, seconds) {
     seconds = 60;
     minutes = timerStatus.minutes;
     minutes--;
+
+    upBackground.style.backgroundColor = '#23272b';
+    upBackground.style.height = '100%';
+    downBackground.style.backgroundColor = 'white';
+    downBackground.style.height = '0%';
   }
 
   // break mode setup
   if (arguments.length === 1) {
     seconds = 60;
     minutes--;
-  }
 
-  // setup the size and colors of the backgrounds
-  // BUG FIXED: this setup it's not prepared for the stop functionality
-  if (timerStatus.break) {
     upBackground.style.backgroundColor = 'white';
     upBackground.style.height = '100%';
     downBackground.style.backgroundColor = '#23272b';
-    downBackground.style.height = '0%';
-  } else {
-    upBackground.style.backgroundColor = '#23272b';
-    upBackground.style.height = '100%';
-    downBackground.style.backgroundColor = 'white';
     downBackground.style.height = '0%';
   }
 
@@ -160,6 +152,7 @@ function startTimer(minutes, seconds) {
         seconds = 60;
       }
     } // end of seconds functionality
+
 
     if (timerStatus.break) {
       backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.defaultBreakTimeValue);
