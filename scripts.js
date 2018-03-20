@@ -105,6 +105,21 @@ function startTimer(minutes, seconds) {
     minutes--;
   }
 
+  // setup the size and colors of the backgrounds
+  // BUG FIXED: this setup it's not prepared for the stop functionality
+  if (timerStatus.break) {
+    upBackground.style.backgroundColor = 'white';
+    upBackground.style.height = '100%';
+    downBackground.style.backgroundColor = '#23272b';
+    downBackground.style.height = '0%';
+  } else {
+    upBackground.style.backgroundColor = '#23272b';
+    upBackground.style.height = '100%';
+    downBackground.style.backgroundColor = 'white';
+    downBackground.style.height = '0%';
+  }
+
+
   timerStatus.setTimer = setInterval(function() {
 
     // when minutesTextContent === '00' and secondsTextContent === '00'
@@ -121,13 +136,6 @@ function startTimer(minutes, seconds) {
       // Sound the alarm.
       console.log('finished: sound alarm!');
       alarmSound.play();
-      
-      // upBackground.style.backgroundColor = 'white';
-      // downBackground.style.backgroundColor = '#23272b';
-      // downBackground.style.height = '0%';
-      // backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.break);
-
-
 
     } else {
       // seconds functionality
@@ -153,12 +161,14 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-    backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
-
+    if (timerStatus.break) {
+      backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.defaultBreakTimeValue);
+    } else {
+      backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
+    }
+    
   }, 100);
 }
-
-
 
 function stopTimer() {
   stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
@@ -187,11 +197,7 @@ function restart() {
 
 // this function should called changeBackgroundSizes(); because she doesn't change colores, only height.
 function backgroundChangeColor(minutes, seconds, timer) {
-  // TODO: switch modes (default and break)
-  if (timerStatus.break) {
-    console.log('break mode inside backgroundChangeColor function');
-  } else {
-    upBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timer) * 60)) * 1000) + '%';
-    downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
-  }
+  // it's this line that it's giving the upBackground the 200% height on the break mode:
+  upBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timer) * 60)) * 1000) + '%';
+  downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
 }
