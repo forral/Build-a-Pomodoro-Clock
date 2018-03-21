@@ -38,7 +38,7 @@ function init() {
     minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
     secondsDisplay.textContent = '00';
 
-  // 2st. set the height
+  // Set the height
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
   
   // TODO: create the timerStatus or load it from localStorage();
@@ -64,6 +64,7 @@ startButton.addEventListener('click', function() {
     // change the bottons
     startButton.classList.add('hidden'); // DRY
     stopButton.classList.remove('hidden'); // DRY
+    restartButton.classList.remove('hidden');
 
     startTimer(timerStatus.defaultBreakTimeValue);
 
@@ -72,7 +73,7 @@ startButton.addEventListener('click', function() {
     startButton.classList.add('hidden'); // DRY
     stopButton.classList.remove('hidden'); // DRY
     restartButton.classList.remove('hidden');
-    
+
     startTimer();
   }
 
@@ -173,24 +174,61 @@ function stopTimer() {
 }
 
 function restart() {
-  // TODO: all the object values should be on the init function.
-  // NOTE/TODO: this functionality it's only for the default timer not for the break timer,
-  // still have for code that
-  timerStatus.currentMinutes = 0;
-  timerStatus.currentSeconds = 0;
-  // timerStatus.runningTimer = false;
-  // timerStatus.runningBreakTimer = false;
-  timerStatus.stopped = false;
-  stopButton.classList.add('hidden');
-  startButton.classList.remove('hidden');
-  restartButton.classList.add('hidden');
-  init();
-  clearInterval(timerStatus.setTimer);
+
+  var minutesOnScreen = Number(minutesDisplay.textContent);
+  var secondsOnScreen = Number(secondsDisplay.textContent);
+  var zerosOnScreen;
+
+  if (minutesOnScreen === 0 && secondsOnScreen === 0) {
+    zerosOnScreen = true;
+  }
+
+
+  function restartDefaultMode() {
+    timerStatus.currentMinutes = 0;
+    timerStatus.currentSeconds = 0;
+    timerStatus.stopped = false;
+    timerStatus.break = false;
+    stopButton.classList.add('hidden');
+    startButton.classList.remove('hidden');
+    restartButton.classList.add('hidden');
+    timerStatus.break = false;
+    init();
+    clearInterval(timerStatus.setTimer);
+  }
+
+  function restartOnBreakMode() {
+    // Change background color and size do the break mode start position
+    upBackground.style.backgroundColor = 'white';
+    upBackground.style.height = '100%';
+    downBackground.style.backgroundColor = '#23272b';
+    downBackground.style.height = '0%';
+
+    // only show play botton when restart from break mode
+    stopButton.classList.add('hidden');
+    startButton.classList.remove('hidden');
+    restartButton.classList.add('hidden');
+
+    // showh default value break time
+    minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.defaultBreakTimeValue)
+    secondsDisplay.textContent = '00'
+
+    timerStatus.break = true;
+    clearInterval(timerStatus.setTimer);
+  }
+
+  if (zerosOnScreen) {
+    
+  } else {
+    
+  }
+
+
+
 }
 
 // this function should called changeBackgroundSizes(); because she doesn't change colores, only height.
 function backgroundChangeColor(minutes, seconds, timer) {
-  // it's this line that it's giving the upBackground the 200% height on the break mode:
   upBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timer) * 60)) * 1000) + '%';
   downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
 }
