@@ -6,7 +6,7 @@ var secondsDisplay = document.getElementById('seconds');
 var alarmSound = document.getElementById('alarm-beep');
 var downBackground = document.querySelector('.down');
 var upBackground = document.querySelector('.up');
-// var title = document.querySelector('.title');
+var title = document.querySelector('.title');
 
 var timerStatus = {
   setTimer: null,
@@ -37,10 +37,8 @@ function init() {
   // TODO: set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
     minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
     secondsDisplay.textContent = '00';
-
   // Set the height
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
-  
   // TODO: create the timerStatus or load it from localStorage();
 }
 
@@ -61,6 +59,8 @@ startButton.addEventListener('click', function() {
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
 
   } else if (timerStatus.break) {
+    // show break time title
+    title.classList.remove('hidden');
     // change the bottons
     startButton.classList.add('hidden'); // DRY
     stopButton.classList.remove('hidden'); // DRY
@@ -69,6 +69,8 @@ startButton.addEventListener('click', function() {
     startTimer(timerStatus.defaultBreakTimeValue);
 
   } else {
+    // hide break time title
+    title.classList.add('hidden');
     // change the bottons
     startButton.classList.add('hidden'); // DRY
     stopButton.classList.remove('hidden'); // DRY
@@ -120,8 +122,17 @@ function startTimer(minutes, seconds) {
 
       // Switching between default and break mode
       timerStatus.break = !timerStatus.break;
+      title.classList.toggle('hidden');
       stopButton.classList.add('hidden');
       startButton.classList.remove('hidden');
+
+      if (timerStatus.break) {
+        minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.defaultBreakTimeValue);
+        secondsDisplay.textContent = '00';        
+      } else {
+        minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
+        secondsDisplay.textContent = '00';
+      }
 
       // Stop the setInterval
       clearInterval(timerStatus.setTimer);

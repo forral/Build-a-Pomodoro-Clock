@@ -51,3 +51,12 @@ html {
 .hidden {
   display: none;
 }
+
+.title {
+  position: absolute;
+  top: 210px;
+  left: 220px;
+  color: grey;
+  font-size: 25px;
+  text-transform: uppercase;
+}
