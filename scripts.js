@@ -183,7 +183,6 @@ function restart() {
     zerosOnScreen = true;
   }
 
-
   function restartDefaultMode() {
     timerStatus.currentMinutes = 0;
     timerStatus.currentSeconds = 0;
@@ -218,12 +217,18 @@ function restart() {
   }
 
   if (zerosOnScreen) {
-    
+    if (timerStatus.break) {
+      restartDefaultMode();
+    } else {
+      restartOnBreakMode();
+    }
   } else {
-    
+    if (timerStatus.break) {
+      restartOnBreakMode();
+    } else {
+      restartDefaultMode();
+    }
   }
-
-
 
 }
 
