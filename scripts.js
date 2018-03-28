@@ -179,13 +179,6 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-
-    // if (timerStatus.break) {
-    //   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.defaultBreakTimeValue);
-    // } else {
-    //   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
-    // }
-    
   }, 100);
 }
 
