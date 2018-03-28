@@ -139,22 +139,29 @@ function startTimer(minutes, seconds) {
 
       // Sound the alarm.
       console.log('finished: sound alarm!');
-      alarmSound.play();
+      // alarmSound.play();
 
     } else {
       // seconds functionality
       if (seconds > 1) {
         seconds--;
 
-        // paint (maybe turn this into a function)
+        // paint (TODO maybe turn this into a function) DRY
         console.log(helpers.twoDigitFormat(minutes) + ':' + helpers.twoDigitFormat(seconds));
         minutesDisplay.textContent = helpers.twoDigitFormat(minutes)
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
 
+        // TODO: Clean this code - DRY
+        if (timerStatus.break) {
+          backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.defaultBreakTimeValue);
+        } else {
+          backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
+        }
+
       } else {
         seconds--;
 
-        // paint (maybe turn this into a function)
+        // paint (TODO maybe turn this into a function) DRY
         console.log(helpers.twoDigitFormat(minutes) + ':' + helpers.twoDigitFormat(seconds));
         minutesDisplay.textContent = helpers.twoDigitFormat(minutes)
         secondsDisplay.textContent = helpers.twoDigitFormat(seconds);
@@ -162,15 +169,22 @@ function startTimer(minutes, seconds) {
         minutes--;
         // reset the seconds value.
         seconds = 60;
+
+        // TODO: Clean this code - DRY
+        if (timerStatus.break) {
+          backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.defaultBreakTimeValue);
+        } else {
+          backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
+        }
       }
     } // end of seconds functionality
 
 
-    if (timerStatus.break) {
-      backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.defaultBreakTimeValue);
-    } else {
-      backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
-    }
+    // if (timerStatus.break) {
+    //   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.defaultBreakTimeValue);
+    // } else {
+    //   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
+    // }
     
   }, 100);
 }
