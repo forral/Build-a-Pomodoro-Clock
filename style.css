@@ -18,6 +18,13 @@ html {
   border-bottom: 1px solid grey;
 }
 
+.top-bar button {
+    background: none;
+    border: none;
+    padding-top: 5%;
+    padding-left: 5%;
+}
+
 .bottom-bar {
   border-top: 1px solid grey;
   text-align: center;
