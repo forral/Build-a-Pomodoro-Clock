@@ -10,12 +10,10 @@ var title = document.querySelector('.title');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 1, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 25, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
-  // defaultStartingValue: 35,
-  // runningTimer: false,
-  defaultBreakTimeValue: 2,
+  defaultBreakTimeValue: 5,
   break: false,
   stopped: false
 }
@@ -43,7 +41,6 @@ function init() {
 }
 
 init();
-
 
 startButton.addEventListener('click', function() {
   // helpers.pauseAndResetSound();
@@ -114,7 +111,6 @@ function startTimer(minutes, seconds) {
     downBackground.style.height = '0%';
   }
 
-
   timerStatus.setTimer = setInterval(function() {
 
     // when minutesTextContent === '00' and secondsTextContent === '00'
@@ -179,7 +175,7 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-  }, 100);
+  }, 1000);
 }
 
 function stopTimer() {
