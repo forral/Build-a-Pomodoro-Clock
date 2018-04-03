@@ -10,7 +10,7 @@ var title = document.querySelector('.title');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 25, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 1, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
   defaultBreakTimeValue: 5,
@@ -175,7 +175,7 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-  }, 1000);
+  }, 100);
 }
 
 function stopTimer() {
