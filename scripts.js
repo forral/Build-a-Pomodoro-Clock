@@ -7,6 +7,8 @@ var alarmSound = document.getElementById('alarm-beep');
 var downBackground = document.querySelector('.down');
 var upBackground = document.querySelector('.up');
 var title = document.querySelector('.title');
+var burgerMenu = document.querySelector('.burger-menu');
+var menu = document.querySelector('.menu');
 
 var timerStatus = {
   setTimer: null,
@@ -84,6 +86,10 @@ stopButton.addEventListener('click', function() {
 
 restartButton.addEventListener('click', function(){
   restart();
+});
+
+burgerMenu.addEventListener('click', function() {
+  toggleMenu();
 });
 
 function startTimer(minutes, seconds) {
@@ -250,4 +256,8 @@ function restart() {
 function backgroundChangeColor(minutes, seconds, timer) {
   upBackground.style.height = (((((Number(minutes) * 60) + (Number(seconds))) * 0.10) / (Number(timer) * 60)) * 1000) + '%';
   downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
+}
+
+function toggleMenu() {
+ menu.classList.toggle('hidden'); 
 }
