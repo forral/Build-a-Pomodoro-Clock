@@ -259,7 +259,7 @@ function backgroundChangeColor(minutes, seconds, timer) {
 }
 
 function toggleMenu() {
- menu.classList.toggle('hidden'); 
+ menu.classList.toggle('show'); 
 }
 
 // # put on trello:
