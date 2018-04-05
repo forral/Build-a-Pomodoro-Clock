@@ -43,6 +43,8 @@ html {
   color: #FF1A66;
   font-size: 150px;
   line-height: 125px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
 }
 
 .background-wrapper {

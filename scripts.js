@@ -181,7 +181,7 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-  }, 100);
+  }, 1000);
 }
 
 function stopTimer() {
@@ -265,4 +265,3 @@ function toggleMenu() {
 
 // # put on trello:
 // 1. there is still a bug with the restart function on breakmode.
-// 2. see how to remove the blue highlight on pressing buttons - see calculator app 
