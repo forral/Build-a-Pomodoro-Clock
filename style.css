@@ -75,9 +75,9 @@ html {
 
 .menu {
   max-height: 0;
-  background-color: red;
+  background-color: grey;
   position: relative;
-  top: 13px;
+  top: 18px;
   transition: max-height 300ms ease-in;
   overflow: hidden;
 }
@@ -85,4 +85,11 @@ html {
 .show {
   max-height: 100px;
   overflow: hidden;
+}
+
+.fa-bars {
+  color: grey;
+  font-size: 26px;
+  margin-top: 15px;
+  margin-left: 15px;
 }

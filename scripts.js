@@ -259,6 +259,7 @@ function backgroundChangeColor(minutes, seconds, timer) {
 }
 
 function toggleMenu() {
+  console.log('clicked');
  menu.classList.toggle('show'); 
 }
 
