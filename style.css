@@ -42,7 +42,7 @@ html {
   left: 228px;
   color: #FF1A66;
   font-size: 150px;
-  line-height: 125px;
+  line-height: 140px;
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
 }
@@ -69,10 +69,11 @@ html {
 .title {
   position: absolute;
   top: 210px;
-  left: 220px;
+  left: 244px;
   color: grey;
   font-size: 25px;
   text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
 }
 
 .menu {
