@@ -9,15 +9,18 @@ var upBackground = document.querySelector('.up');
 var title = document.querySelector('.title');
 var burgerMenu = document.querySelector('.burger-menu');
 var menu = document.querySelector('.menu');
+var pomodoroInput = document.querySelector('.number-minutes-pomodoro');
+var breakInput = document.querySelector('.number-minutes-break');
 
 var timerStatus = {
   setTimer: null,
-  minutes: 1, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 2, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultBreakTimeValue: 5,
+  defaultBreakTimeValue: 2,
   break: false,
-  stopped: false
+  stopped: false,
+  menuActive: false
 }
 
 var helpers = {
@@ -35,8 +38,13 @@ var helpers = {
 
 function init() {
   // TODO: set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
-    minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
-    secondsDisplay.textContent = '00';
+  minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
+  secondsDisplay.textContent = '00';
+
+  // setup the values on the inputs
+  pomodoroInput.value = timerStatus.minutes;
+  breakInput.value = timerStatus.defaultBreakTimeValue;
+
   // Set the height
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
   // TODO: create the timerStatus or load it from localStorage();
@@ -94,6 +102,12 @@ burgerMenu.addEventListener('click', function() {
 
 function startTimer(minutes, seconds) {
   
+  if (arguments.length === 2 && arguments[1] === '00') {
+    seconds = 60;
+    minutes--;
+  }
+
+
   // default setup
   if (arguments.length === 0) {
     seconds = 60;
@@ -181,10 +195,11 @@ function startTimer(minutes, seconds) {
       }
     } // end of seconds functionality
 
-  }, 1000);
+  }, 300);
 }
 
 function stopTimer() {
+  // debugger;
   stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
   startButton.classList.remove('hidden'); // TODO: research if i can change this for toggle?
   timerStatus.stopped = true;
@@ -259,9 +274,7 @@ function backgroundChangeColor(minutes, seconds, timer) {
 }
 
 function toggleMenu() {
-  console.log('clicked');
- menu.classList.toggle('show'); 
+  timerStatus.menuActive = !timerStatus.menuActive;
+  menu.classList.toggle('show');
+  stopTimer();
 }
-
-// # put on trello:
-// 1. there is still a bug with the restart function on breakmode.
