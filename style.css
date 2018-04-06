@@ -86,7 +86,7 @@ html {
 }
 
 .show {
-  max-height: 100px;
+  max-height: 119px;
   overflow: hidden;
 }
 
@@ -95,4 +95,19 @@ html {
   font-size: 26px;
   margin-top: 15px;
   margin-left: 15px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 0 0 30px;
+}
+
+tr :nth-child(2), tr :nth-child(3) {
+  padding: 10px 19px;
+  border-bottom: 1px solid lightgrey;
+}
+
+tr:last-child {
+  border: none;
 }
