@@ -11,6 +11,7 @@ var burgerMenu = document.querySelector('.burger-menu');
 var menu = document.querySelector('.menu');
 var pomodoroInput = document.querySelector('.number-minutes-pomodoro');
 var breakInput = document.querySelector('.number-minutes-break');
+var alarmCheckbox = document.querySelector('.alarm-checkbox');
 
 var timerStatus = {
   setTimer: null,
@@ -20,7 +21,8 @@ var timerStatus = {
   defaultBreakTimeValue: 2,
   break: false,
   stopped: false,
-  menuActive: false
+  menuActive: false,
+  alarm: false
 }
 
 var helpers = {
@@ -44,6 +46,9 @@ function init() {
   // setup the values on the inputs
   pomodoroInput.value = timerStatus.minutes;
   breakInput.value = timerStatus.defaultBreakTimeValue;
+
+  // setup the alarm functionality
+  alarmCheckbox.checked = timerStatus.alarm;
 
   // Set the height
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
@@ -102,11 +107,11 @@ burgerMenu.addEventListener('click', function() {
 
 function startTimer(minutes, seconds) {
   
+  // when click the stop button with '00' on seconds, and then start the clock again.
   if (arguments.length === 2 && arguments[1] === '00') {
     seconds = 60;
     minutes--;
   }
-
 
   // default setup
   if (arguments.length === 0) {
