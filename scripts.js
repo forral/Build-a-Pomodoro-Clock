@@ -13,39 +13,39 @@ var pomodoroInput = document.querySelector('.number-minutes-pomodoro');
 var breakInput = document.querySelector('.number-minutes-break');
 var alarmCheckbox = document.querySelector('.alarm-checkbox');
 
+var helpers = {
+  twoDigitFormat: function (number) {
+    if (number.length === 2) {
+      return number
+    }
+    return number < 10 ? '0' + number : number;
+  },
+  pauseAndResetSound: function () {
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
+  }
+}
+
+// setup the default values on the inputs
+pomodoroInput.value = 25;
+breakInput.value = 5;
+
 var timerStatus = {
   setTimer: null,
-  minutes: 2, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: pomodoroInput.value, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultBreakTimeValue: 2,
+  defaultBreakTimeValue: breakInput.value,
   break: false,
   stopped: false,
   menuActive: false,
   alarm: false
 }
 
-var helpers = {
-  twoDigitFormat: function(number) {
-    if (number.length === 2) {
-      return number
-    }
-    return number < 10 ? '0' + number : number;
-  },
-  pauseAndResetSound: function() {
-    alarmSound.pause();
-    alarmSound.currentTime = 0;
-  }
-}
-
-function init() {
+function init() {  
   // TODO: set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
   minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
   secondsDisplay.textContent = '00';
-
-  // setup the values on the inputs
-  pomodoroInput.value = timerStatus.minutes;
-  breakInput.value = timerStatus.defaultBreakTimeValue;
 
   // setup the alarm functionality
   alarmCheckbox.checked = timerStatus.alarm;
@@ -56,6 +56,16 @@ function init() {
 }
 
 init();
+
+pomodoroInput.addEventListener('change', function() {
+  timerStatus.minutes = pomodoroInput.value;
+  minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
+  secondsDisplay.textContent = '00';
+});
+
+breakInput.addEventListener('change', function() {
+  timerStatus.defaultBreakTimeValue = breakInput.value;
+});
 
 startButton.addEventListener('click', function() {
   // helpers.pauseAndResetSound();
@@ -204,7 +214,6 @@ function startTimer(minutes, seconds) {
 }
 
 function stopTimer() {
-  // debugger;
   stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
   startButton.classList.remove('hidden'); // TODO: research if i can change this for toggle?
   timerStatus.stopped = true;
@@ -281,5 +290,4 @@ function backgroundChangeColor(minutes, seconds, timer) {
 function toggleMenu() {
   timerStatus.menuActive = !timerStatus.menuActive;
   menu.classList.toggle('show');
-  stopTimer();
 }
