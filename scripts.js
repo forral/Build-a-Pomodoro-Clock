@@ -71,8 +71,7 @@ startButton.addEventListener('click', function() {
     // toggle stopped mode
     timerStatus.stopped = !timerStatus.stopped;
     // change the bottons
-    startButton.classList.add('hidden'); // DRY
-    stopButton.classList.remove('hidden'); // DRY
+    toggleStopPlayButtons();
 
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
 
@@ -80,8 +79,9 @@ startButton.addEventListener('click', function() {
     // show break time title
     title.classList.remove('hidden');
     // change the bottons
-    startButton.classList.add('hidden'); // DRY
-    stopButton.classList.remove('hidden'); // DRY
+    // startButton.classList.add('hidden'); // DRY
+    // stopButton.classList.remove('hidden'); // DRY
+    toggleStopPlayButtons();
     restartButton.classList.remove('hidden');
 
     startTimer(timerStatus.defaultBreakTimeValue);
@@ -90,8 +90,7 @@ startButton.addEventListener('click', function() {
     // hide break time title
     title.classList.add('hidden');
     // change the bottons
-    startButton.classList.add('hidden'); // DRY
-    stopButton.classList.remove('hidden'); // DRY
+    toggleStopPlayButtons();
     restartButton.classList.remove('hidden');
 
     startTimer();
@@ -210,8 +209,7 @@ function startTimer(minutes, seconds) {
 }
 
 function stopTimer() {
-  stopButton.classList.add('hidden'); // TODO: research if i can change this for toggle?
-  startButton.classList.remove('hidden'); // TODO: research if i can change this for toggle?
+  toggleStopPlayButtons();
   timerStatus.stopped = true;
   timerStatus.currentMinutes = minutesDisplay.textContent;
   timerStatus.currentSeconds = secondsDisplay.textContent;
@@ -286,4 +284,9 @@ function backgroundChangeColor(minutes, seconds, timer) {
 function toggleMenu() {
   timerStatus.menuActive = !timerStatus.menuActive;
   menu.classList.toggle('show');
+}
+
+function toggleStopPlayButtons() {
+  stopButton.classList.toggle('hidden');
+  startButton.classList.toggle('hidden');
 }
