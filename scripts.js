@@ -26,19 +26,16 @@ var helpers = {
   }
 }
 
-// setup the default values on the inputs
-pomodoroInput.value = 25;
-breakInput.value = 5;
-
 var timerStatus = {
   setTimer: null,
-  minutes: pomodoroInput.value, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 1, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultBreakTimeValue: breakInput.value,
+  defaultBreakTimeValue: 1,
   break: false,
   stopped: false,
   menuActive: false,
+  pausedByMenu: false,
   alarm: false
 }
 
@@ -58,13 +55,12 @@ function init() {
 init();
 
 pomodoroInput.addEventListener('change', function() {
-  timerStatus.minutes = pomodoroInput.value;
-  minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
-  secondsDisplay.textContent = '00';
+  console.log('Pomodoro input change');
 });
 
 breakInput.addEventListener('change', function() {
-  timerStatus.defaultBreakTimeValue = breakInput.value;
+  // timerStatus.defaultBreakTimeValue = breakInput.value;
+  console.log('Break input change');
 });
 
 startButton.addEventListener('click', function() {
