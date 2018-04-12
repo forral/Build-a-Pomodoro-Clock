@@ -68,31 +68,20 @@ startButton.addEventListener('click', function() {
 
   // run the timer after a stop button was pressed
   if (timerStatus.stopped) {
-    // toggle stopped mode
     timerStatus.stopped = !timerStatus.stopped;
-    // change the bottons
     toggleStopPlayButtons();
-
     startTimer(timerStatus.currentMinutes, timerStatus.currentSeconds);
 
   } else if (timerStatus.break) {
-    // show break time title
     title.classList.remove('hidden');
-    // change the bottons
-    // startButton.classList.add('hidden'); // DRY
-    // stopButton.classList.remove('hidden'); // DRY
     toggleStopPlayButtons();
-    restartButton.classList.remove('hidden');
-
+    restartButton.classList.remove('hidden'); // <- see if this line is necessary
     startTimer(timerStatus.defaultBreakTimeValue);
 
   } else {
-    // hide break time title
     title.classList.add('hidden');
-    // change the bottons
     toggleStopPlayButtons();
     restartButton.classList.remove('hidden');
-
     startTimer();
   }
 
