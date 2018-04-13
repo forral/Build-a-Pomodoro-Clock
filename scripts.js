@@ -134,19 +134,14 @@ function startTimer(minutes, seconds) {
 
     // when minutesTextContent === '00' and secondsTextContent === '00'
     if (minutes === -1) {
-
       // Switching between default and break mode
       timerStatus.break = !timerStatus.break;
       title.classList.toggle('hidden');
-
-      debugger;
-      // TESTING TO SEE IF I CAN PUT THE TOGGLEBUTTONS FUNCTION HERE.
-      stopButton.classList.add('hidden');
-      startButton.classList.remove('hidden');
+      toggleStopPlayButtons();
 
       if (timerStatus.break) {
         minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.defaultBreakTimeValue);
-        secondsDisplay.textContent = '00';        
+        secondsDisplay.textContent = '00';
       } else {
         minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
         secondsDisplay.textContent = '00';
