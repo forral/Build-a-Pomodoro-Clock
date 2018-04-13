@@ -138,6 +138,9 @@ function startTimer(minutes, seconds) {
       // Switching between default and break mode
       timerStatus.break = !timerStatus.break;
       title.classList.toggle('hidden');
+
+      debugger;
+      // TESTING TO SEE IF I CAN PUT THE TOGGLEBUTTONS FUNCTION HERE.
       stopButton.classList.add('hidden');
       startButton.classList.remove('hidden');
 
