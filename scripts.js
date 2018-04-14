@@ -230,6 +230,11 @@ function restart() {
     // Change background color and size do the break mode start position
     setUpBackground();
 
+    timerStatus.currentMinutes = 0;
+    timerStatus.currentSeconds = 0;
+    timerStatus.stopped = false;
+    timerStatus.break = false;
+
     // only show play botton when restart from break mode
     if (timerStatus.stopped) {
       restartButton.classList.add('hidden');
