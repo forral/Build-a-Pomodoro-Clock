@@ -99,6 +99,7 @@ burgerMenu.addEventListener('click', function() {
   toggleMenu();
 });
 
+
 function startTimer(minutes, seconds) {
   
   // when click the stop button with '00' on seconds, and then start the clock again.
@@ -112,22 +113,14 @@ function startTimer(minutes, seconds) {
     seconds = 60;
     minutes = timerStatus.minutes;
     minutes--;
-
-    upBackground.style.backgroundColor = '#23272b';
-    upBackground.style.height = '100%';
-    downBackground.style.backgroundColor = 'white';
-    downBackground.style.height = '0%';
+    setUpBackground('dark');
   }
 
   // break mode setup
   if (arguments.length === 1) {
     seconds = 60;
     minutes--;
-
-    upBackground.style.backgroundColor = 'white';
-    upBackground.style.height = '100%';
-    downBackground.style.backgroundColor = '#23272b';
-    downBackground.style.height = '0%';
+    setUpBackground();
   }
 
   timerStatus.setTimer = setInterval(function() {
@@ -218,24 +211,21 @@ function restart() {
     timerStatus.currentSeconds = 0;
     timerStatus.stopped = false;
     timerStatus.break = false;
-    stopButton.classList.add('hidden');
-    startButton.classList.remove('hidden');
+
+    toggleStopPlayButtons();
     restartButton.classList.add('hidden');
+
     timerStatus.break = false;
     init();
     clearInterval(timerStatus.setTimer);
   }
-
+  
   function restartOnBreakMode() {
     // Change background color and size do the break mode start position
-    upBackground.style.backgroundColor = 'white';
-    upBackground.style.height = '100%';
-    downBackground.style.backgroundColor = '#23272b';
-    downBackground.style.height = '0%';
+    setUpBackground();
 
     // only show play botton when restart from break mode
-    stopButton.classList.add('hidden');
-    startButton.classList.remove('hidden');
+    toggleStopPlayButtons();
     restartButton.classList.add('hidden');
 
     // showh default value break time
@@ -276,4 +266,14 @@ function toggleMenu() {
 function toggleStopPlayButtons() {
   stopButton.classList.toggle('hidden');
   startButton.classList.toggle('hidden');
+}
+
+// pass 'dark' to pomodoro mode or nothing to break mode
+// setUpBackground('dark') = pomodoro mode | dark brackground
+// setUpBackground() = break mode | white brackground
+function setUpBackground(mode) {
+  upBackground.style.backgroundColor = mode === 'dark' ? '#23272b' : 'white';
+  upBackground.style.height = '100%';
+  downBackground.style.backgroundColor = mode === 'dark' ? 'white' : '#23272b';
+  downBackground.style.height = '0%';
 }
