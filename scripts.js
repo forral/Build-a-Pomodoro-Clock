@@ -221,8 +221,6 @@ function restart() {
       startButton.classList.remove('hidden');
     }
 
-
-
     timerStatus.break = false;
     init();
     clearInterval(timerStatus.setTimer);
@@ -233,8 +231,13 @@ function restart() {
     setUpBackground();
 
     // only show play botton when restart from break mode
-    toggleStopPlayButtons();
-    restartButton.classList.add('hidden');
+    if (timerStatus.stopped) {
+      restartButton.classList.add('hidden');
+    } else {
+      restartButton.classList.add('hidden');
+      stopButton.classList.add('hidden');
+      startButton.classList.remove('hidden');
+    }
 
     // showh default value break time
     minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.defaultBreakTimeValue)
