@@ -212,7 +212,6 @@ function restart() {
     timerStatus.stopped = false;
     timerStatus.break = false;
 
-    toggleStopPlayButtons();
     restartButton.classList.add('hidden');
 
     timerStatus.break = false;
