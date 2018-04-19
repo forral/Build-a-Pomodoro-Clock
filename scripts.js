@@ -274,9 +274,18 @@ function backgroundChangeColor(minutes, seconds, timer) {
   downBackground.style.height = (100 - upBackground.style.height.replace(/\%/, '')) + '%';
 }
 
-function toggleMenu() {
+function toggleMenu() {  
   timerStatus.menuActive = !timerStatus.menuActive;
   menu.classList.toggle('show');
+
+  if (timerStatus.menuActive) {
+    console.log('menu is open');
+  } else {
+    console.log('menu is closed');
+    // 1. update de values if they were change
+    // 2. restart the app with the new values
+  }
+
 }
 
 function toggleStopPlayButtons() {
