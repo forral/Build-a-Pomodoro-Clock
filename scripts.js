@@ -41,11 +41,22 @@ var timerStatus = {
 
 function init() {  
   // TODO: set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
-  minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
-  secondsDisplay.textContent = '00';
+  // minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
+  // secondsDisplay.textContent = '00';
 
   // setup the alarm functionality
   alarmCheckbox.checked = timerStatus.alarm;
+
+  // setup the default values on the inputs.
+  pomodoroInput.value = '25';
+  breakInput.value = '5';
+
+  // 1. update de values
+  timerStatus.minutes = pomodoroInput.value;
+  timerStatus.defaultBreakTimeValue = breakInput.value;
+  // 2. restart the app with the new values
+  minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
+  secondsDisplay.textContent = '00';
 
   // Set the height
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
@@ -282,8 +293,12 @@ function toggleMenu() {
     console.log('menu is open');
   } else {
     console.log('menu is closed');
-    // 1. update de values if they were change
+    // 1. update de values
+    timerStatus.minutes = pomodoroInput.value;
+    timerStatus.defaultBreakTimeValue = breakInput.value;
     // 2. restart the app with the new values
+    minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
+    secondsDisplay.textContent = '00';
   }
 
 }
