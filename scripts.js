@@ -35,7 +35,7 @@ var timerStatus = {
   break: false,
   stopped: false,
   menuActive: false,
-  pausedByMenu: false,
+  pausedByMenu: false, // <- TODO: can I delete this line?
   alarm: false
 }
 
@@ -65,7 +65,7 @@ breakInput.addEventListener('change', function() {
 });
 
 startButton.addEventListener('click', function() {
-  // helpers.pauseAndResetSound();
+  helpers.pauseAndResetSound();
 
   if (timerStatus.menuActive) {
     return;
@@ -158,7 +158,9 @@ function startTimer(minutes, seconds) {
 
       // Sound the alarm.
       console.log('finished: sound alarm!');
-      // alarmSound.play();
+      if (timerStatus.alarm) {
+        alarmSound.play();
+      }
 
     } else {
       // seconds functionality
@@ -298,6 +300,7 @@ function toggleMenu() {
     // 1. update de values
     timerStatus.minutes = pomodoroInput.value;
     timerStatus.defaultBreakTimeValue = breakInput.value;
+    timerStatus.alarm = alarmCheckbox.checked;
     // 2. restart the app with the new values
     minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
     secondsDisplay.textContent = '00';
