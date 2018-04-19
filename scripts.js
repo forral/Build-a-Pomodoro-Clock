@@ -67,6 +67,10 @@ breakInput.addEventListener('change', function() {
 startButton.addEventListener('click', function() {
   // helpers.pauseAndResetSound();
 
+  if (timerStatus.menuActive) {
+    return;
+  }
+
   // run the timer after a stop button was pressed
   if (timerStatus.stopped) {
     timerStatus.stopped = !timerStatus.stopped;
@@ -89,10 +93,16 @@ startButton.addEventListener('click', function() {
 });
 
 stopButton.addEventListener('click', function() {
+  if (timerStatus.menuActive) {
+    return;
+  }
   stopTimer();
 });
 
 restartButton.addEventListener('click', function(){
+  if (timerStatus.menuActive) {
+    return;
+  }
   restart();
 });
 
