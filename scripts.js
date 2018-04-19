@@ -28,10 +28,10 @@ var helpers = {
 
 var timerStatus = {
   setTimer: null,
-  minutes: 1, // read like: how many times do I whant the seconds counter to run 60 seconds?
+  minutes: 25, // read like: how many times do I whant the seconds counter to run 60 seconds?
   currentMinutes: 0,
   currentSeconds: 0,
-  defaultBreakTimeValue: 1,
+  defaultBreakTimeValue: 5,
   break: false,
   stopped: false,
   menuActive: false,
@@ -48,12 +48,9 @@ function init() {
   alarmCheckbox.checked = timerStatus.alarm;
 
   // setup the default values on the inputs.
-  pomodoroInput.value = '25';
-  breakInput.value = '5';
+  pomodoroInput.value = timerStatus.minutes;
+  breakInput.value = timerStatus.defaultBreakTimeValue;
 
-  // 1. update de values
-  timerStatus.minutes = pomodoroInput.value;
-  timerStatus.defaultBreakTimeValue = breakInput.value;
   // 2. restart the app with the new values
   minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
   secondsDisplay.textContent = '00';
