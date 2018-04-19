@@ -39,22 +39,15 @@ var timerStatus = {
   alarm: false
 }
 
-function init() {  
-  // TODO: set the app openning with minutes and seconds display (if there isn's any user settings, by default it should be 25:00)
-  // minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
-  // secondsDisplay.textContent = '00';
-
+function init() {
   // setup the alarm functionality
   alarmCheckbox.checked = timerStatus.alarm;
-
   // setup the default values on the inputs.
   pomodoroInput.value = timerStatus.minutes;
   breakInput.value = timerStatus.defaultBreakTimeValue;
-
   // 2. restart the app with the new values
   minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
   secondsDisplay.textContent = '00';
-
   // Set the height
   backgroundChangeColor(minutesDisplay.textContent, secondsDisplay.textContent, timerStatus.minutes);
   // TODO: create the timerStatus or load it from localStorage();
@@ -107,9 +100,10 @@ burgerMenu.addEventListener('click', function() {
   toggleMenu();
 });
 
-
 function startTimer(minutes, seconds) {
-  
+
+  burgerMenu.classList.add('hidden');
+
   // when click the stop button with '00' on seconds, and then start the clock again.
   if (arguments.length === 2 && arguments[1] === '00') {
     seconds = 60;
@@ -144,6 +138,7 @@ function startTimer(minutes, seconds) {
         minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.defaultBreakTimeValue);
         secondsDisplay.textContent = '00';
       } else {
+        burgerMenu.classList.remove('hidden');
         minutesDisplay.textContent = helpers.twoDigitFormat(timerStatus.minutes);
         secondsDisplay.textContent = '00';
       }
@@ -205,7 +200,6 @@ function stopTimer() {
 }
 
 function restart() {
-
   var minutesOnScreen = Number(minutesDisplay.textContent);
   var secondsOnScreen = Number(secondsDisplay.textContent);
   var zerosOnScreen;
@@ -230,6 +224,7 @@ function restart() {
     }
 
     timerStatus.break = false;
+    burgerMenu.classList.remove('hidden');
     init();
     clearInterval(timerStatus.setTimer);
   }
